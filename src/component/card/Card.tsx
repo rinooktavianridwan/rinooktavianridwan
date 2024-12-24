@@ -24,19 +24,22 @@ function Card({
   const [show, setShow] = useState(false);
 
   return (
-    <div className="flex flex-col bg-blue-100 shadow-lg rounded-lg w-full h-full p-4 justify-center items-center">
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <div className="p-4 h-full w-full flex flex-col md:flex-row md:gap-8 z-0">
-        <div className="flex h-full w-full justify-center">
+    <div className="flex flex-col bg-[#3E8DE3] shadow-lg rounded-lg w-full h-full py-4 justify-center items-center">
+      <h3 className="text-md  md:text-xl font-bold mb-2">{title}</h3>
+      <div className="p-4 h-full w-full flex flex-col md:flex-row md:gap-4 z-0">
+        <div className="flex h-full w-full md:w-[70%] justify-center">
           {/* CustomSwipper */}
           {Array.isArray(image) && image.length > 0 ? (
-            <CustomSwipper className="flex w-full min-w-[150px] md:max-w-[300px] h-[120px] md:h-[200px] transition-all duration-300 ease-in-out">
+            <CustomSwipper
+              className="flex items-center justify-center w-full min-w-[100px] max-w-[380px] md:max-w-[380px] h-[120px] md:h-[200px] transition-all duration-300 ease-in-out"
+              navigationId="projects-image"
+            >
               {image.map((image, index) => (
-                <SwiperSlide key={index} className=" px-[10px] ">
+                <SwiperSlide key={index} className="px-[10px]">
                   <img
                     src={image.image}
                     alt={title}
-                    className="h-full object-cover mx-auto"
+                    className="w-full object-cover mx-auto"
                   />
                 </SwiperSlide>
               ))}
@@ -47,19 +50,38 @@ function Card({
             </div>
           )}
         </div>
-        <div className="flex flex-col h-full w-full ">
+        <div className="flex flex-col h-full w-full md:w-[30%] ">
           <h4 className="text-md md:text-lg font-bold">Description</h4>
-          <p className="text-sm md:text-md text-gray-600">{description}</p>
+          <p className="text-sm md:text-md ">{description}</p>
           <h4 className="text-md md:text-lg font-bold mt-4">Link Website</h4>
-          <p className="text-sm md:text-md">{website}</p>
+          {website !== "" ? (
+            <p
+              onClick={() => window.open(website, "_blank")}
+              className="text-sm md:text-md hover:cursor-pointer w-fit"
+            >
+              Click Here
+            </p>
+          ) : (
+            <p className="text-sm md:text-md ">Link not added yet</p>
+          )}
+
           <h4 className="text-md md:text-lg font-bold mt-4">Link Github</h4>
-          <p className="text-sm md:text-md">{github}</p>
+          {github !== "" ? (
+            <p
+              onClick={() => window.open(github, "_blank")}
+              className="text-sm md:text-md hover:cursor-pointer w-fit"
+            >
+              Click Here
+            </p>
+          ) : (
+            <p className="text-sm md:text-md ">Link not added yet</p>
+          )}
         </div>
       </div>
       <div className="w-full px-4 md:px-8">
         {/* Button Documentation dan Panah */}
         <div
-          className="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full text-center cursor-pointer flex items-center justify-center"
+          className="relative bg-[#143AA2] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full text-center cursor-pointer flex items-center justify-center"
           onClick={() => setShow(true)}
         >
           <span>Documentation</span>
@@ -77,7 +99,7 @@ function Card({
           >
             <div className="relative w-11/12 md:w-4/5">
               <button
-                className="absolute flex item-center justify-center top-4 right-4 w-8 h-8 pt-1 text-white bg-red-500 rounded-full hover:bg-red-700"
+                className="absolute flex item-center justify-center top-4 right-4 w-8 h-8 pt-1 text-[#D3D4D7] bg-red-500 rounded-full hover:bg-red-700"
                 onClick={() => setShow(false)}
               >
                 ✕
@@ -94,7 +116,7 @@ function Card({
                 ></iframe>
               ) : (
                 <div className="flex justify-center items-center w-full h-72 bg-black rounded-lg">
-                  <p className="text-white text-xl">Video Not Added Yet</p>
+                  <p className="text-[#D3D4D7] text-xl">Video Not Added Yet</p>
                 </div>
               )}
             </div>

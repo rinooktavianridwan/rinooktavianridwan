@@ -25,7 +25,7 @@ function Navbar() {
         <ul className="hidden md:flex gap-10 text-lg font-medium mx-auto relative">
           {/* Animated Bar */}
           <div
-            className="absolute bottom-0 h-[2px] bg-blue-400 transition-all duration-1000 ease-in-out"
+            className="absolute bottom-0 h-[4px] bg-[#143AA2] rounded-full transition-all duration-1000 ease-in-out"
             style={{
               width: navRefs.current[activeIndex]?.offsetWidth || 0,
               transform: `translateX(${
@@ -44,8 +44,8 @@ function Navbar() {
                 type="button"
                 onClick={() => scrollToSection(index, item.to)}
                 className={`block pb-1 font-bold ${
-                  activeIndex === index ? "text-blue-400" : ""
-                } hover:text-blue-400`}
+                  activeIndex === index ? "text-[#143AA2]" : ""
+                } hover:text-[#143AA2]`}
               >
                 {item.name}
               </button>
@@ -89,8 +89,8 @@ function Navbar() {
             <button
               type="button"
               onClick={() => scrollToSection(index, item.to)}
-              className={`block w-full text-left px-6 py-3 text-lg hover:bg-gray-100 ${
-                activeIndex === index ? "text-blue-400" : ""
+              className={`block w-full text-left px-6 py-3 text-lg font-bold hover:bg-gray-100 ${
+                activeIndex === index ? "text-[#143AA2]" : ""
               }`}
             >
               {item.name}

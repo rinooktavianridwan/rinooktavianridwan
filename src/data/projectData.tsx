@@ -1,48 +1,59 @@
-import profile from "../../public/profile.png";
+import project1_1 from "../assets/Project/Project_1/1.jpg";
+import project1_2 from "../assets/Project/Project_1/2.jpg";
+import project1_3 from "../assets/Project/Project_1/3.jpg";
+import project1_4 from "../assets/Project/Project_1/4.jpg";
+
+import project2_1 from "../assets/Project/Project_2/1.jpg";
+import project2_2 from "../assets/Project/Project_2/2.jpg";
+import project2_3 from "../assets/Project/Project_2/3.jpg";
+import project2_4 from "../assets/Project/Project_2/4.jpg";
 
 export const projects = [
   {
-    title: "Project 1",
+    title: "Website Budaya Indonesia",
     image: [
-      { id: 1, image: profile },
-      { id: 2, image: profile },
-      { id: 3, image: profile },
+      { id: 1, image: project1_1 },
+      { id: 2, image: project1_2 },
+      { id: 3, image: project1_3 },
+      { id: 4, image: project1_4 },
     ],
-    description: "Deskripsi Project 1",
-    website : "",
-    github : "",
+    description: "React + CSS",
+    website: "https://jejak-budaya-nusantara.web.app",
+    github: "https://github.com/zakkimuzakki25/jejak-budaya-nusantara",
     documentation: "",
   },
   {
-    title: "Project 2",
+    title: "My Pokemon List",
+    image: [
+      { id: 1, image: project2_1 },
+      { id: 2, image: project2_2 },
+      { id: 3, image: project2_3 },
+      { id: 4, image: project2_4 },
+    ],
+    description: "React + CSS",
+    website: "https://mypokemonlist-0.web.app/",
+    github:
+      "https://github.com/rinooktavianridwan/MyPokemon?tab=readme-ov-file",
+    documentation: "",
+  },
+  {
+    title: "Website Rental Mobil",
     image: [],
-    description: "Deskripsi Project 2",
+    description: "Laravel + CSS",
     website: "",
-    github : "",
+    github: "https://github.com/rinooktavianridwan/projectAkhirPEMWEB",
     documentation: "",
   },
-  {
-    title: "Project 3",
-    image: [
-        { id: 1, image: "" },
-        { id: 2, image: "" },
-        { id: 3, image: "" },
-      ],
-    description: "Deskripsi Project 3",
-    website : "",
-    github : "",
-    documentation: "",
-  },
-  {
-    title: "Project 4",
-    image: [
-        { id: 1, image: "" },
-        { id: 2, image: "" },
-        { id: 3, image: "" },
-      ],
-    description: "Deskripsi Project 4",
-    website : "",
-    github : "",
-    documentation: "",
-  },
+  // {
+  //   title: "Project 4",
+  //   image: [
+  //     { id: 1, image: "" },
+  //     { id: 2, image: "" },
+  //     { id: 3, image: "" },
+  //   ],
+  //   description: "Deskripsi Project 4",
+  //   website: "",
+  //   github: "",
+  //   documentation: "",
+  // },
 ];
