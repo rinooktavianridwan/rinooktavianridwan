@@ -8,6 +8,11 @@ import project2_2 from "../assets/Project/Project_2/2.jpg";
 import project2_3 from "../assets/Project/Project_2/3.jpg";
 import project2_4 from "../assets/Project/Project_2/4.jpg";
 
+import project3_1 from "../assets/Project/Project_3/1.png";
+import project3_2 from "../assets/Project/Project_3/2.png";
+import project3_3 from "../assets/Project/Project_3/3.png";
+import project3_4 from "../assets/Project/Project_3/4.png";
+
 export const projects = [
   {
     title: "Website Budaya Indonesia",
@@ -38,11 +43,16 @@ export const projects = [
   },
   {
     title: "Website Rental Mobil",
-    image: [],
+    image: [
+      { id: 1, image: project3_1 },
+      { id: 2, image: project3_2 },
+      { id: 3, image: project3_3 },
+      { id: 4, image: project3_4 },
+    ],
     description: "Laravel + CSS",
     website: "",
     github: "https://github.com/rinooktavianridwan/projectAkhirPEMWEB",
-    documentation: "",
+    documentation: "https://www.youtube.com/embed/OzM9Ym3fiNc",
   },
   // {
   //   title: "Project 4",

@@ -21,15 +21,13 @@ function Perkenalan() {
           {/* Foto Profil */}
           <div className="flex w-full justify-center items-center">
             <div className="relative border-[#143AA2] flex justify-center items-center rounded-full bg-transparent w-36 h-36 border-4 md:w-56 md:h-56 md:border-8">
-              <div className="relative rounded-full bg-transparent shadow-lg border-[#143AA2] border-2 w-32 h-32  md:border-4 md:w-48 md:h-48">
+              <div className="relative rounded-full bg-transparent shadow-lg border-[#143AA2] border-[2.5px] w-32 h-32  md:border-4 md:w-48 md:h-48">
                 <img
                   src="/Foto_Diri.png"
                   alt="Profile"
-                  className="absolute h-full object-cover scale-[1.5]"
+                  className="absolute h-full object-cover scale-[1.5] top-[-30px] right-[15.5px] md:top-[-44px] md:right-[23.4px]"
                   style={{
-                    clipPath: "inset(0 0 0 0 round 0 0 48% 48%)",
-                    right: "23.4px",
-                    top: "-45px",
+                    clipPath: "inset(0 0 0 0 round 0 0 48.5% 48.5%)",
                   }}
                 />
               </div>

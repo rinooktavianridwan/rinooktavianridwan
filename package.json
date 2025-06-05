@@ -12,7 +12,6 @@
   "dependencies": {
     "@types/swiper": "^6.0.0",
     "bootstrap": "^5.3.3",
-    "firebase": "^11.1.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.6",
     "react-dom": "^18.3.1",
@@ -21,6 +20,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@types/babel__generator": "^7.27.0",
+    "@types/babel__template": "^7.4.4",
+    "@types/babel__traverse": "^7.20.7",
+    "@types/estree": "^1.0.7",
+    "@types/json-schema": "^7.0.15",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",

@@ -32,7 +32,7 @@ function Card({
           {Array.isArray(image) && image.length > 0 ? (
             <CustomSwipper
               className="flex items-center justify-center w-full min-w-[100px] max-w-[380px] md:max-w-[380px] h-[120px] md:h-[200px] transition-all duration-300 ease-in-out"
-              navigationId="projects-image"
+              navigationId={`projects-image-${Math.random().toString(36).substring(2, 8)}`}
             >
               {image.map((image, index) => (
                 <SwiperSlide key={index} className="px-[10px]">

@@ -7,7 +7,7 @@ function Navbar() {
   const menuItems = [
     { name: "My Bio", to: "#bio" },
     { name: "Projects", to: "#projects" },
-    { name: "Contact", to: "#contact" },
+    { name: "Contact", to: "#contact" }, 
   ];
 
   const navRefs = useRef<HTMLLIElement[]>([]);
