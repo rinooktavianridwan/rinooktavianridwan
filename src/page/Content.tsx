@@ -1,4 +1,5 @@
 import Perkenalan from "../component/Perkenalan";
+import TechStack from "../component/TechStack";
 import Portofolio from "../component/Portofolio";
 import Contact from "../component/Contact";
 import 'swiper/css';
@@ -9,6 +10,7 @@ function Content() {
   return (
     <div>
       <Perkenalan />
+      <TechStack />
       <Portofolio />
       <Contact />
     </div>

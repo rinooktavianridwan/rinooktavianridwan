@@ -9,7 +9,7 @@ function Portofolio() {
     <>
       <div
         id="projects"
-        className="flex flex-col w-full bg-white justify-center items-center"
+        className="flex flex-col w-full bg-[#3E8DE3] justify-center items-center pt-12 pb-4"
       >
         <h2 className="text-center text-4xl font-bold mb-8">Projects</h2>
         <div className="flex w-full justify-center items-center">
@@ -39,7 +39,7 @@ function Portofolio() {
         <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          className="w-full h-32 scale-x-[-1] fill-[#3E8DE3]"
+          className="w-full h-32 scale-y-[-1] fill-[#3E8DE3]"
         >
           <path d="M0,80 C100,50 300,30 450,70 C600,110 750,50 900,80 C1050,110 1400,60 1200,120 L0,120 Z"></path>
         </svg>

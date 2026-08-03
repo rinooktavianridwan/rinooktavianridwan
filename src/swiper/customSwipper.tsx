@@ -28,14 +28,13 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
   };
 
   return (
-    <div className={`flex flex-row ${className}`}>
+    <div className={`flex flex-row items-center ${className}`}>
       {/* Tombol Navigasi Kiri */}
       <div className="flex items-center justify-center w-2/5 h-full">
         <button
           type="button"
-          className={`w-full h-fit custom-prev-btn-${navigationId} ${
-            isPrevDisabled ? "opacity-50 cursor-not-allowed" : "opacity-100"
-          }`}
+          className={`w-full h-fit custom-prev-btn-${navigationId} ${isPrevDisabled ? "opacity-50 cursor-not-allowed" : "opacity-100"
+            }`}
           disabled={isPrevDisabled}
         >
           <ArrowPrev />
@@ -66,9 +65,8 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
       <div className="flex items-center justify-center w-2/5 h-full">
         <button
           type="button"
-          className={`w-full h-fit custom-next-btn-${navigationId} ${
-            isNextDisabled ? "opacity-50 cursor-not-allowed" : "opacity-100"
-          }`}
+          className={`w-full h-fit custom-next-btn-${navigationId} ${isNextDisabled ? "opacity-50 cursor-not-allowed" : "opacity-100"
+            }`}
           disabled={isNextDisabled}
         >
           <ArrowNext />

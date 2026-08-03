@@ -26,6 +26,7 @@ export const projects = [
     website: "https://jejak-budaya-nusantara.web.app",
     github: "https://github.com/zakkimuzakki25/jejak-budaya-nusantara",
     documentation: "",
+    technologies: ["React", "JavaScript", "CSS3", "HTML5"],
   },
   {
     title: "My Pokemon List",
@@ -40,6 +41,7 @@ export const projects = [
     github:
       "https://github.com/rinooktavianridwan/MyPokemon?tab=readme-ov-file",
     documentation: "",
+    technologies: ["React", "JavaScript", "CSS3", "REST API"],
   },
   {
     title: "Website Rental Mobil",
@@ -53,6 +55,7 @@ export const projects = [
     website: "",
     github: "https://github.com/rinooktavianridwan/projectAkhirPEMWEB",
     documentation: "https://www.youtube.com/embed/OzM9Ym3fiNc",
+    technologies: ["Laravel", "PHP", "MySQL", "CSS3"],
   },
   // {
   //   title: "Project 4",

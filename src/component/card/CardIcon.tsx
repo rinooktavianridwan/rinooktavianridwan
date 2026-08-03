@@ -1,23 +1,67 @@
-// components/Card.jsx
+import { useState } from "react";
 
-interface CardProps {
+interface CardIconProps {
   color: string;
   destination: string;
   source: string;
+  platformName?: string;
 }
 
-function CardIcon({ color, destination, source }: CardProps) {
+function CardIcon({ color, destination, source, platformName }: CardIconProps) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleClick = () => {
+    if (destination) {
+      window.open(destination, "_blank");
+    }
+  };
+
+  // Check if source is emoji (for Email and WhatsApp)
+  const isEmoji = typeof source === 'string' && source.length <= 2 && /\p{Emoji}/u.test(source);
+
   return (
-    <button
-      onClick={() => window.open(destination, '_blank')}
-      type="button"
-      data-twe-ripple-init
-      data-twe-ripple-color="light"
-      style={{ backgroundColor: color}} 
-      className="mb-2 inline-block rounded px-6 py-2.5 transition bg-opacity-1 duration-300 ease-in-out hover:bg-opacity-1"
+    <div
+      className="relative group"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
     >
-      <img src={source} alt="icon" className="h-4 w-4 md:h-10 md:w-10" />
-    </button>
+      {/* Tooltip */}
+      {showTooltip && platformName && (
+        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-md whitespace-nowrap z-10 opacity-0 animate-[fadeIn_0.2s_ease-out_forwards]">
+          {platformName}
+          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
+        </div>
+      )}
+
+      <div
+        className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-125 hover:rotate-12 hover:shadow-xl relative overflow-hidden group"
+        style={{
+          backgroundColor: color,
+          boxShadow: `0 4px 15px ${color}40`,
+        }}
+        onClick={handleClick}
+      >
+        {/* Glow effect on hover */}
+        <div
+          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            boxShadow: `0 0 20px ${color}, 0 0 40px ${color}80`,
+          }}
+        ></div>
+
+        {isEmoji ? (
+          <span className="text-2xl relative z-10 group-hover:scale-110 transition-transform duration-300">
+            {source}
+          </span>
+        ) : (
+          <img
+            src={source}
+            alt={platformName || "social"}
+            className="w-6 h-6 relative z-10 group-hover:scale-110 transition-transform duration-300"
+          />
+        )}
+      </div>
+    </div>
   );
 }
 

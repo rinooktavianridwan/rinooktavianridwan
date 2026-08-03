@@ -36,7 +36,7 @@ function useNavbar(): UseNavbarReturn {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0); // Set isScrolled jika posisi scroll > 0
 
-      const sections = ["#bio", "#projects", "#contact"];
+      const sections = ["#bio", "#techstack", "#projects", "#contact"];
       sections.forEach((section, index) => {
         const element = document.querySelector(section);
         if (element) {

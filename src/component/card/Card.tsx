@@ -24,105 +24,122 @@ function Card({
   const [show, setShow] = useState(false);
 
   return (
-    <div className="flex flex-col bg-[#3E8DE3] shadow-lg rounded-lg w-full h-full py-4 justify-center items-center">
-      <h3 className="text-md  md:text-xl font-bold mb-2">{title}</h3>
-      <div className="p-4 h-full w-full flex flex-col md:flex-row md:gap-4 z-0">
-        <div className="flex h-full w-full md:w-[70%] justify-center">
-          {/* CustomSwipper */}
-          {Array.isArray(image) && image.length > 0 ? (
-            <CustomSwipper
-              className="flex items-center justify-center w-full min-w-[100px] max-w-[380px] md:max-w-[380px] h-[120px] md:h-[200px] transition-all duration-300 ease-in-out"
-              navigationId={`projects-image-${Math.random().toString(36).substring(2, 8)}`}
-            >
-              {image.map((image, index) => (
-                <SwiperSlide key={index} className="px-[10px]">
-                  <img
-                    src={image.image}
-                    alt={title}
-                    className="w-full object-cover mx-auto"
-                  />
-                </SwiperSlide>
-              ))}
-            </CustomSwipper>
-          ) : (
-            <div className="flex items-center justify-center h-full text-gray-500">
-              No images available
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col h-full w-full md:w-[30%] ">
-          <h4 className="text-md md:text-lg font-bold">Description</h4>
-          <p className="text-sm md:text-md ">{description}</p>
-          <h4 className="text-md md:text-lg font-bold mt-4">Link Website</h4>
-          {website !== "" ? (
-            <p
-              onClick={() => window.open(website, "_blank")}
-              className="text-sm md:text-md hover:cursor-pointer w-fit"
-            >
-              Click Here
-            </p>
-          ) : (
-            <p className="text-sm md:text-md ">Link not added yet</p>
-          )}
+    <div className="flex flex-col bg-white shadow-lg rounded-lg w-full h-full p-4 justify-start items-center">
+      {/* Title - Larger and more prominent */}
+      <h3 className="text-lg md:text-2xl font-bold mb-4 text-center text-black">{title}</h3>
 
-          <h4 className="text-md md:text-lg font-bold mt-4">Link Github</h4>
-          {github !== "" ? (
-            <p
-              onClick={() => window.open(github, "_blank")}
-              className="text-sm md:text-md hover:cursor-pointer w-fit"
-            >
-              Click Here
-            </p>
-          ) : (
-            <p className="text-sm md:text-md ">Link not added yet</p>
-          )}
-        </div>
-      </div>
-      <div className="w-full px-4 md:px-8">
-        {/* Button Documentation dan Panah */}
-        <div
-          className="relative bg-[#143AA2] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full text-center cursor-pointer flex items-center justify-center"
-          onClick={() => setShow(true)}
-        >
-          <span>Documentation</span>
-          <div className="absolute right-4">
-            <ArrowUp />
+      {/* Content Area with lighter blue background */}
+      <div className="bg-[#5BA3F5] rounded-lg w-full p-4">
+        {/* Grid Layout: 1 column on mobile, 7:3 ratio on desktop (image 70%, text 30%) */}
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+          {/* Left Column: Image - 7/10 width on desktop */}
+          <div className="w-full md:col-span-7">
+            {image && image.length > 0 ? (
+              <CustomSwipper navigationId="card-images">
+                {image.map((img, index) => (
+                  <SwiperSlide key={index} className="px-[10px]">
+                    <img
+                      src={img.image}
+                      alt={title}
+                      className="w-full object-cover mx-auto rounded-lg"
+                    />
+                  </SwiperSlide>
+                ))}
+              </CustomSwipper>
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-500">
+                No images available
+              </div>
+            )}
           </div>
-        </div>
-        {/* Overlay untuk Video */}
-        {show && (
-          <div
-            className="fixed inset-0 bg-blue-900 bg-opacity-95 flex justify-center items-center transition-transform duration-300"
-            style={{
-              transform: "translateY(0)",
-            }}
-          >
-            <div className="relative w-11/12 md:w-4/5">
-              <button
-                className="absolute flex item-center justify-center top-4 right-4 w-8 h-8 pt-1 text-[#D3D4D7] bg-red-500 rounded-full hover:bg-red-700"
-                onClick={() => setShow(false)}
-              >
-                ✕
-              </button>
-              {documentation ? (
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={documentation}
-                  title="YouTube video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="rounded-lg shadow-lg"
-                ></iframe>
+
+          {/* Right Column: Text Content - 3/10 width on desktop */}
+          <div className="flex flex-col gap-4 md:col-span-3">
+            {/* Description Section */}
+            <div className="flex flex-col">
+              <h4 className="text-md md:text-lg font-bold text-black">Description</h4>
+              <p className="text-sm md:text-md text-black">{description}</p>
+            </div>
+
+            {/* Link Website Section */}
+            <div className="flex flex-col">
+              <h4 className="text-md md:text-lg font-bold text-black">Link Website</h4>
+              {website !== "" ? (
+                <p
+                  onClick={() => window.open(website, "_blank")}
+                  className="text-sm md:text-md hover:cursor-pointer w-fit hover:underline text-black"
+                >
+                  Click Here
+                </p>
               ) : (
-                <div className="flex justify-center items-center w-full h-72 bg-black rounded-lg">
-                  <p className="text-[#D3D4D7] text-xl">Video Not Added Yet</p>
-                </div>
+                <p className="text-sm md:text-md text-black">Link not added yet</p>
+              )}
+            </div>
+
+            {/* Link Github Section */}
+            <div className="flex flex-col">
+              <h4 className="text-md md:text-lg font-bold text-black">Link Github</h4>
+              {github !== "" ? (
+                <p
+                  onClick={() => window.open(github, "_blank")}
+                  className="text-sm md:text-md hover:cursor-pointer w-fit hover:underline text-black"
+                >
+                  Click Here
+                </p>
+              ) : (
+                <p className="text-sm md:text-md text-black">Link not added yet</p>
               )}
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Documentation Button - Full width below grid */}
+        <div className="w-full mt-4">
+          <button
+            onClick={() => setShow(true)}
+            className="w-full bg-[#2E5C99] hover:bg-[#1e3a5f] text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors"
+          >
+            Documentation
+            <div className="transform rotate-45">
+              <ArrowUp />
+            </div>
+          </button>
+        </div>
       </div>
+
+      {/* Overlay untuk Video */}
+      {show && (
+        <div
+          className="fixed inset-0 bg-blue-900 bg-opacity-95 flex justify-center items-center transition-transform duration-300 z-50"
+          style={{
+            transform: "translateY(0)",
+          }}
+        >
+          <div className="relative w-11/12 md:w-4/5">
+            <button
+              className="absolute flex items-center justify-center top-4 right-4 w-8 h-8 pt-1 text-[#D3D4D7] bg-red-500 rounded-full hover:bg-red-700 z-10"
+              onClick={() => setShow(false)}
+            >
+              ✕
+            </button>
+            {documentation ? (
+              <iframe
+                width="100%"
+                height="315"
+                src={documentation}
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="rounded-lg shadow-lg"
+              ></iframe>
+            ) : (
+              <div className="flex justify-center items-center w-full h-72 bg-black rounded-lg">
+                <p className="text-[#D3D4D7] text-xl">Video Not Added Yet</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
