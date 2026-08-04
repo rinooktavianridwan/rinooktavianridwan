@@ -42,7 +42,7 @@ function TechStack() {
                         {/* Row 1 - Scroll Left (slower) */}
                         <div className="relative overflow-hidden w-full">
                             <div className="flex gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap">
-                                {[...row1, ...row1, ...row1].map((tech, index) => (
+                                {[...row1, ...row1].map((tech, index) => (
                                     <TechBadge key={`row1-${index}`} tech={tech} index={index} rowKey="row1" />
                                 ))}
                             </div>
@@ -51,7 +51,7 @@ function TechStack() {
                         {/* Row 2 - Scroll Right (medium speed) */}
                         <div className="relative overflow-hidden w-full">
                             <div className="flex gap-6 animate-scroll-right hover:pause whitespace-nowrap">
-                                {[...row2, ...row2, ...row2].map((tech, index) => (
+                                {[...row2, ...row2].map((tech, index) => (
                                     <TechBadge key={`row2-${index}`} tech={tech} index={index} rowKey="row2" />
                                 ))}
                             </div>
@@ -60,7 +60,7 @@ function TechStack() {
                         {/* Row 3 - Scroll Left (faster) */}
                         <div className="relative overflow-hidden w-full">
                             <div className="flex gap-6 animate-scroll-left hover:pause whitespace-nowrap">
-                                {[...row3, ...row3, ...row3].map((tech, index) => (
+                                {[...row3, ...row3].map((tech, index) => (
                                     <TechBadge key={`row3-${index}`} tech={tech} index={index} rowKey="row3" />
                                 ))}
                             </div>

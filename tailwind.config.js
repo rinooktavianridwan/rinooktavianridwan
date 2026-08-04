@@ -60,6 +60,7 @@ export default {
         'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
         'blink': 'blink 1s ease-in-out infinite',
         'scroll-left': 'scroll-left 40s linear infinite',
+        'scroll-left-slow': 'scroll-left 60s linear infinite',
         'scroll-right': 'scroll-right 40s linear infinite',
       },
     },

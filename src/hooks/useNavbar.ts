@@ -22,7 +22,10 @@ function useNavbar(): UseNavbarReturn {
     setActiveIndex(index);
     const section = document.querySelector(href);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      const navbarHeight = 64; // h-16 navbar
+      const top =
+        section.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({ top, behavior: "smooth" });
     }
   };
 
