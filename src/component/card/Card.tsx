@@ -3,25 +3,17 @@ import { useState } from "react";
 import ArrowUp from "../icon/ArrowUp";
 import CustomSwipper from "../../swiper/customSwipper"; // Import CustomSwipper
 import { SwiperSlide } from "swiper/react";
+import type { ProjectResponse } from "../../api/types";
 
 interface CardProps {
-  title: string;
-  image: { id: number; image: string }[];
-  description: string;
-  website: string;
-  github: string;
-  documentation: string;
+  project: ProjectResponse;
 }
 
-function Card({
-  title,
-  image,
-  description,
-  website,
-  github,
-  documentation,
-}: CardProps) {
+function Card({ project }: CardProps) {
   const [show, setShow] = useState(false);
+
+  const { title, description, images, websiteUrl, githubUrl, documentationUrl } =
+    project;
 
   return (
     <div className="flex flex-col bg-white shadow-lg rounded-lg w-full h-full p-4 justify-start items-center">
@@ -34,12 +26,12 @@ function Card({
         <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
           {/* Left Column: Image - 7/10 width on desktop */}
           <div className="w-full md:col-span-7">
-            {image && image.length > 0 ? (
+            {images && images.length > 0 ? (
               <CustomSwipper navigationId="card-images">
-                {image.map((img, index) => (
-                  <SwiperSlide key={index} className="px-[10px]">
+                {images.map((img) => (
+                  <SwiperSlide key={img.id} className="px-[10px]">
                     <img
-                      src={img.image}
+                      src={img.imageUrl}
                       alt={title}
                       className="w-full object-cover mx-auto rounded-lg"
                     />
@@ -64,9 +56,9 @@ function Card({
             {/* Link Website Section */}
             <div className="flex flex-col">
               <h4 className="text-md md:text-lg font-bold text-black">Link Website</h4>
-              {website !== "" ? (
+              {websiteUrl ? (
                 <p
-                  onClick={() => window.open(website, "_blank")}
+                  onClick={() => window.open(websiteUrl, "_blank")}
                   className="text-sm md:text-md hover:cursor-pointer w-fit hover:underline text-black"
                 >
                   Click Here
@@ -79,9 +71,9 @@ function Card({
             {/* Link Github Section */}
             <div className="flex flex-col">
               <h4 className="text-md md:text-lg font-bold text-black">Link Github</h4>
-              {github !== "" ? (
+              {githubUrl ? (
                 <p
-                  onClick={() => window.open(github, "_blank")}
+                  onClick={() => window.open(githubUrl, "_blank")}
                   className="text-sm md:text-md hover:cursor-pointer w-fit hover:underline text-black"
                 >
                   Click Here
@@ -122,11 +114,11 @@ function Card({
             >
               ✕
             </button>
-            {documentation ? (
+            {documentationUrl ? (
               <iframe
                 width="100%"
                 height="315"
-                src={documentation}
+                src={documentationUrl}
                 title="YouTube video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

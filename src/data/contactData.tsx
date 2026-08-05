@@ -1,21 +1,12 @@
 import github from "../assets/github.svg";
 import linkedin from "../assets/linkedin.svg";
 import instagram from "../assets/instagram.svg";
+import type { ContactResponse } from "../api/types";
 
 // Contact data aligned with backend schema
 // Backend: { platformName, url, iconUrl, color, order, isVisible }
 
-interface ContactData {
-  id: number;
-  platformName: string;
-  url: string;
-  iconUrl: string;
-  color: string;
-  order: number;
-  isVisible: boolean;
-}
-
-export const contactData: ContactData[] = [
+export const contactData: ContactResponse[] = [
   {
     id: 1,
     platformName: "GitHub",

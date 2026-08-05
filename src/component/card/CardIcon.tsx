@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isEmojiIcon } from "../../utils/icon.util";
 
 interface CardIconProps {
   color: string;
@@ -17,7 +18,7 @@ function CardIcon({ color, destination, source, platformName }: CardIconProps) {
   };
 
   // Check if source is emoji (for Email and WhatsApp)
-  const isEmoji = typeof source === 'string' && source.length <= 2 && /\p{Emoji}/u.test(source);
+  const isEmoji = isEmojiIcon(source);
 
   return (
     <div

@@ -1,13 +1,24 @@
 import { useTypingEffect } from "../hooks/useTypingEffect";
+import type { UserResponse } from "../api/types";
 import Wave from "./Wave";
 
-function Perkenalan() {
+type PerkenalanProps = {
+  profile?: UserResponse;
+};
+
+function Perkenalan({ profile }: PerkenalanProps) {
   const roles = [
     "Full-Stack Developer",
     "Frontend Enthusiast",
     "Backend Developer",
     "DevOps Explorer"
   ];
+
+  const name = profile?.name || "Rino Oktavian Ridwan";
+  const bio =
+    profile?.bio ||
+    "Brawijaya University student passionate about creating innovative web solutions. Focused on full-stack development and continuously exploring new technologies.";
+  const profilePicture = profile?.profilePictureUrl || "/Foto_Diri.png";
 
   const typedRole = useTypingEffect({
     texts: roles,
@@ -28,7 +39,7 @@ function Perkenalan() {
             <div className="relative border-[#143AA2] flex justify-center items-center rounded-full bg-transparent w-36 h-36 border-4 md:w-56 md:h-56 md:border-8 animate-pulse-slow hover:scale-110 transition-transform duration-500">
               <div className="relative rounded-full bg-transparent shadow-lg border-[#143AA2] border-[2.5px] w-32 h-32 md:border-4 md:w-48 md:h-48">
                 <img
-                  src="/Foto_Diri.png"
+                  src={profilePicture}
                   alt="Profile"
                   className="absolute h-full object-cover scale-[1.5] top-[-30px] right-[15.5px] md:top-[-44px] md:right-[23.4px]"
                   style={{
@@ -42,7 +53,7 @@ function Perkenalan() {
           {/* Teks Perkenalan - Second on mobile, first on desktop */}
           <div className="flex flex-col w-full items-center md:items-start text-center md:text-left order-2 md:order-1">
             <p className="text-xl font-bold mb-2 md:text-3xl animate-slide-in-left" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-              Rino Oktavian Ridwan
+              {name}
             </p>
 
             {/* Typing Animation */}
@@ -54,8 +65,7 @@ function Perkenalan() {
             </div>
 
             <p className="text-sm md:text-lg animate-slide-in-left max-w-xl" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-              Brawijaya University student passionate about creating innovative web solutions.
-              Focused on full-stack development and continuously exploring new technologies.
+              {bio}
             </p>
           </div>
         </div>

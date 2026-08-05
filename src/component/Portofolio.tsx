@@ -2,9 +2,15 @@
 import CustomSwipper from "../swiper/customSwipper"; // Import CustomSwipper
 import Card from "./card/Card"; // Import Card
 import { SwiperSlide } from "swiper/react"; // Import SwiperSlide
-import { projects } from "../data/projectData";
+import type { ProjectResponse } from "../api/types";
 
-function Portofolio() {
+type PortofolioProps = {
+  projects: ProjectResponse[];
+};
+
+function Portofolio({ projects }: PortofolioProps) {
+  const visibleProjects = projects.filter((project) => project.isVisible);
+
   return (
     <>
       <div
@@ -13,24 +19,22 @@ function Portofolio() {
       >
         <h2 className="text-center text-4xl font-bold mb-8">Projects</h2>
         <div className="flex w-full justify-center items-center">
-          {/* CustomSwipper */}
-          <CustomSwipper
-            className=" min-w-[100px] md:max-w-[800px] h-[440px] md:h-[350px] transition-all duration-300 ease-in-out"
-            navigationId="projects"
-          >
-            {projects.map((projects, index) => (
-              <SwiperSlide key={index}>
-                <Card
-                  title={projects.title}
-                  image={projects.image}
-                  description={projects.description}
-                  documentation={projects.documentation}
-                  website={projects.website}
-                  github={projects.github}
-                />
-              </SwiperSlide>
-            ))}
-          </CustomSwipper>
+          {visibleProjects.length > 0 ? (
+            <CustomSwipper
+              className=" min-w-[100px] md:max-w-[800px] h-[440px] md:h-[350px] transition-all duration-300 ease-in-out"
+              navigationId="projects"
+            >
+              {visibleProjects.map((project) => (
+                <SwiperSlide key={project.id}>
+                  <Card project={project} />
+                </SwiperSlide>
+              ))}
+            </CustomSwipper>
+          ) : (
+            <p className="text-white/80 text-lg text-center py-16">
+              Belum ada proyek yang ditampilkan.
+            </p>
+          )}
         </div>
       </div>
 

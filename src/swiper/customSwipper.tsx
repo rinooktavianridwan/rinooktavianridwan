@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import type { Swiper as SwiperInstance } from "swiper/types";
 import ArrowNext from "../component/icon/ArrowNext";
 import ArrowPrev from "../component/icon/ArrowPrev";
 import "swiper/css";
@@ -22,7 +23,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: SwiperInstance) => {
     setIsPrevDisabled(swiper.isBeginning);
     setIsNextDisabled(swiper.isEnd);
   };

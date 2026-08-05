@@ -1,7 +1,15 @@
 import CardIcon from "./card/CardIcon";
-import { contactData } from "../data/contactData";
+import type { ContactResponse } from "../api/types";
 
-function Contact() {
+type ContactProps = {
+  contacts: ContactResponse[];
+};
+
+function Contact({ contacts }: ContactProps) {
+  const visibleContacts = contacts
+    .filter((item) => item.isVisible)
+    .sort((a, b) => a.order - b.order);
+
   return (
     <>
       <div
@@ -13,20 +21,22 @@ function Contact() {
             Contact
           </div>
           <div className="flex flex-row gap-4 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-            {contactData
-              .filter(item => item.isVisible)
-              .sort((a, b) => a.order - b.order)
-              .map((item, index) => (
+            {visibleContacts.length > 0 ? (
+              visibleContacts.map((item, index) => (
                 <div key={item.id} className="animate-fade-in-up" style={{ animationDelay: `${0.5 + index * 0.1}s`, animationFillMode: 'both' }}>
                   <CardIcon
-                    color={item.color}
+                    color={item.color ?? "#3E8DE3"}
                     destination={item.url}
                     source={item.iconUrl}
                     platformName={item.platformName}
                   />
                 </div>
-              ))}
-
+              ))
+            ) : (
+              <p className="text-white/80 text-lg text-center py-4">
+                Belum ada kontak yang ditampilkan.
+              </p>
+            )}
           </div>
         </div>
       </div>
