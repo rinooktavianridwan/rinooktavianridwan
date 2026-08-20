@@ -9,6 +9,8 @@ interface UseNavbarReturn {
   isScrolled: boolean;
 }
 
+const SECTIONS = ["#bio", "#techstack", "#projects", "#contact"];
+
 function useNavbar(): UseNavbarReturn {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -20,9 +22,10 @@ function useNavbar(): UseNavbarReturn {
 
   const scrollToSection = (index: number, href: string) => {
     setActiveIndex(index);
+    setIsOpen(false);
     const section = document.querySelector(href);
     if (section) {
-      const navbarHeight = 64; // h-16 navbar
+      const navbarHeight = 64;
       const top =
         section.getBoundingClientRect().top + window.scrollY - navbarHeight;
       window.scrollTo({ top, behavior: "smooth" });
@@ -37,22 +40,30 @@ function useNavbar(): UseNavbarReturn {
     };
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0); // Set isScrolled jika posisi scroll > 0
+      setIsScrolled(window.scrollY > 0);
 
-      const sections = ["#bio", "#techstack", "#projects", "#contact"];
-      sections.forEach((section, index) => {
-        const element = document.querySelector(section);
+      // Section aktif = section terakhir yang bagian atasnya sudah
+      // terlewati sepertiga tinggi layar. Lebih tahan untuk section
+      // tinggi dibanding cuma mengecek "top" di rentang 0–50vh.
+      const scrollMarker = window.scrollY + window.innerHeight / 3;
+
+      let current = 0;
+      SECTIONS.forEach((sectionId, index) => {
+        const element = document.querySelector(sectionId);
         if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
-            setActiveIndex(index);
+          const elementTop =
+            element.getBoundingClientRect().top + window.scrollY;
+          if (scrollMarker >= elementTop) {
+            current = index;
           }
         }
       });
+      setActiveIndex(current);
     };
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // set state awal begitu halaman dimuat
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -60,8 +71,14 @@ function useNavbar(): UseNavbarReturn {
     };
   }, []);
 
-  return { isOpen, toggleNavbar, activeIndex, setActiveIndex, scrollToSection, isScrolled };
+  return {
+    isOpen,
+    toggleNavbar,
+    activeIndex,
+    setActiveIndex,
+    scrollToSection,
+    isScrolled,
+  };
 }
-
 
 export default useNavbar;

@@ -15,17 +15,16 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled
-        ? "bg-white/80 backdrop-blur-md text-black shadow-lg"
-        : "bg-white text-black"
-        } ${isOpen ? "bg-white" : ""}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled || isOpen
+        ? "bg-white/90 backdrop-blur-md text-black shadow-lg"
+        : "bg-white text-black shadow-sm"
+        }`}
     >
       <div className="flex justify-between items-center px-6 py-4 h-16">
         {/* Desktop Navbar */}
         <ul className="hidden md:flex gap-10 text-lg font-medium mx-auto relative">
-          {/* Animated Bar */}
           <div
-            className="absolute bottom-0 h-[4px] bg-[#143AA2] rounded-full transition-all duration-1000 ease-in-out"
+            className="absolute bottom-0 h-[3px] bg-[#143AA2] rounded-full transition-all duration-500 ease-in-out"
             style={{
               width: navRefs.current[activeIndex]?.offsetWidth || 0,
               transform: `translateX(${navRefs.current[activeIndex]?.offsetLeft || 0
@@ -35,14 +34,17 @@ function Navbar() {
 
           {menuItems.map((item, index) => (
             <li
-              key={index}
-              ref={(el) => (navRefs.current[index] = el!)}
+              key={item.name}
+              ref={(el) => {
+                navRefs.current[index] = el!;
+              }}
               className="relative"
             >
               <button
                 type="button"
                 onClick={() => scrollToSection(index, item.to)}
-                className={`block pb-1 font-bold ${activeIndex === index ? "text-[#143AA2]" : ""
+                aria-current={activeIndex === index ? "page" : undefined}
+                className={`block pb-1 font-bold transition-colors duration-200 ${activeIndex === index ? "text-[#143AA2]" : "text-black/80"
                   } hover:text-[#143AA2]`}
               >
                 {item.name}
@@ -52,43 +54,47 @@ function Navbar() {
         </ul>
 
         {/* Mobile Burger Menu */}
-        <div
-          className="flex flex-col items-center cursor-pointer gap-1 md:hidden z-10"
+        <button
+          type="button"
+          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+          aria-expanded={isOpen}
+          className="flex flex-col items-center cursor-pointer gap-1 md:hidden z-10 p-2"
           onClick={toggleNavbar}
         >
           <div
-            className={`h-1 w-8 bg-current transform transition-transform ${isOpen ? "rotate-45 translate-y-2" : ""
+            className={`h-1 w-8 bg-current rounded-full transform transition-transform duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""
               }`}
           ></div>
           <div
-            className={`h-1 w-8 bg-current transition-opacity ${isOpen ? "opacity-0" : ""
+            className={`h-1 w-8 bg-current rounded-full transition-opacity duration-300 ${isOpen ? "opacity-0" : ""
               }`}
           ></div>
           <div
-            className={`h-1 w-8 bg-current transform transition-transform ${isOpen ? "-rotate-45 -translate-y-2" : ""
+            className={`h-1 w-8 bg-current rounded-full transform transition-transform duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
           ></div>
-        </div>
+        </button>
       </div>
 
       {/* Mobile Menu Dropdown */}
       <ul
-        className={`absolute top-16 left-0 w-full bg-white transition-all duration-500 ease-in-out transform ${isOpen
+        className={`absolute top-16 left-0 w-full bg-white transition-all duration-500 ease-in-out transform shadow-lg ${isOpen
           ? "translate-y-0 opacity-100 pointer-events-auto visible"
           : "-translate-y-16 opacity-0 pointer-events-none invisible"
           } md:hidden`}
       >
         {menuItems.map((item, index) => (
-          <li key={index}>
+          <li key={item.name}>
             <button
               type="button"
               onClick={() => scrollToSection(index, item.to)}
-              className={`block w-full text-left px-6 py-3 text-lg font-bold hover:bg-gray-100 ${activeIndex === index ? "text-[#143AA2]" : ""
+              aria-current={activeIndex === index ? "page" : undefined}
+              className={`block w-full text-left px-6 py-3 text-lg font-bold transition-colors duration-200 hover:bg-gray-100 ${activeIndex === index ? "text-[#143AA2]" : "text-black"
                 }`}
             >
               {item.name}
             </button>
-            <hr />
+            <hr className="border-gray-200" />
           </li>
         ))}
       </ul>
