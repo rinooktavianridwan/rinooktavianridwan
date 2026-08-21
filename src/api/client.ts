@@ -6,6 +6,16 @@ export function getApiBaseUrl(): string {
   return API_BASE_URL.replace(/\/+$/, "");
 }
 
+export function resolveAssetUrl(url?: string): string {
+  if (!url) return "";
+  if (/^https?:\/\//.test(url)) return url;
+  if (url.startsWith("/")) {
+    const base = getApiBaseUrl();
+    return base ? `${base}${url}` : url;
+  }
+  return url;
+}
+
 export function isApiEnabled(): boolean {
   return API_BASE_URL.length > 0;
 }

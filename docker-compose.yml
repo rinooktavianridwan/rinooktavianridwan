@@ -3,7 +3,10 @@ services:
     build:
       context: .
       args:
-        VITE_API_URL: ${VITE_API_URL:-}
+        # Berikan nilai default ke API production Anda
+        VITE_API_URL: ${VITE_API_URL:-https://api.rinooktavianridwan.site}
     ports:
-      - "80:80"
+      # Hanya bisa diakses dari dalam server host
+      # Nginx di dalam container berjalan di port 80, di-map ke 5173 host
+      - "127.0.0.1:5173:80" 
     restart: unless-stopped
