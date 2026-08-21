@@ -4,7 +4,7 @@ RUN corepack enable
 
 FROM base AS deps
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm approve-builds esbuild && pnpm install --frozen-lockfile
 
 FROM deps AS build
 ARG VITE_API_URL=""
