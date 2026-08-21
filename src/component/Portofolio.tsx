@@ -29,7 +29,7 @@ function Portofolio({ projects }: PortofolioProps) {
         <div className="flex w-full justify-center items-center">
           {visibleProjects.length > 0 ? (
             <CustomSwipper
-              className="min-w-[100px] md:max-w-[800px] h-[440px] md:h-[350px] transition-all duration-300 ease-in-out"
+              className="min-w-[100px] md:max-w-[1100px] lg:max-w-[1200px] h-[440px] md:h-[380px] transition-all duration-300 ease-in-out"
               navigationId="projects"
             >
               {visibleProjects.map((project) => (

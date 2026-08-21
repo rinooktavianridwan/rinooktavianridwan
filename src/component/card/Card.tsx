@@ -45,7 +45,7 @@ function Card({ project }: CardProps) {
           <div className="flex flex-col gap-4 md:col-span-3">
             <div className="flex flex-col">
               <h4 className="text-md md:text-lg font-bold text-black">Description</h4>
-              <p className="text-sm md:text-md text-black">{description}</p>
+              <p className="text-sm md:text-md text-black max-h-[200px] overflow-y-auto pr-2">{description}</p>
             </div>
 
             <div className="flex flex-col">

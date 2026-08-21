@@ -23,7 +23,7 @@ function TechStack({ technologies }: TechStackProps) {
 
     const TechBadge = ({ tech }: { tech: TechnologyResponse }) => (
         <div
-            className="inline-flex items-center flex-shrink-0 px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 cursor-pointer"
+            className="inline-flex items-center flex-shrink-0 px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 cursor-pointer z-10 relative"
             style={{
                 backgroundColor: `${tech.color}15`,
                 color: tech.color,
@@ -59,8 +59,8 @@ function TechStack({ technologies }: TechStackProps) {
                         {visibleTechs.length > 0 ? (
                             <>
                                 {row1.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap">
+                                    <div className="relative w-full" style={fadeMaskStyle}>
+                                        <div className="flex gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap pb-4">
                                             {[...row1, ...row1].map((tech, index) => (
                                                 <TechBadge key={`row1-${index}`} tech={tech} />
                                             ))}
@@ -68,8 +68,8 @@ function TechStack({ technologies }: TechStackProps) {
                                     </div>
                                 )}
                                 {row2.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-right hover:pause whitespace-nowrap">
+                                    <div className="relative w-full" style={fadeMaskStyle}>
+                                        <div className="flex gap-6 animate-scroll-right hover:pause whitespace-nowrap pb-4">
                                             {[...row2, ...row2].map((tech, index) => (
                                                 <TechBadge key={`row2-${index}`} tech={tech} />
                                             ))}
@@ -77,8 +77,8 @@ function TechStack({ technologies }: TechStackProps) {
                                     </div>
                                 )}
                                 {row3.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-left hover:pause whitespace-nowrap">
+                                    <div className="relative w-full" style={fadeMaskStyle}>
+                                        <div className="flex gap-6 animate-scroll-left hover:pause whitespace-nowrap pb-4">
                                             {[...row3, ...row3].map((tech, index) => (
                                                 <TechBadge key={`row3-${index}`} tech={tech} />
                                             ))}

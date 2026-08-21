@@ -13,9 +13,9 @@ function Contact({ contacts }: ContactProps) {
   return (
     <div
       id="contact"
-      className="flex justify-center items-center w-full py-16 px-4 bg-white"
+      className="flex justify-center items-center w-full py-24 px-4 bg-white min-h-[500px]"
     >
-      <div className="flex flex-col gap-4 justify-start items-center bg-[#3E8DE3] p-8 w-full max-w-[350px] md:max-w-[600px] rounded-xl shadow-xl animate-scale-in hover:shadow-2xl transition-shadow duration-300">
+      <div className="flex flex-col gap-4 justify-start items-center bg-[#3E8DE3] p-8 w-full max-w-[350px] md:max-w-[700px] rounded-xl shadow-xl animate-scale-in hover:shadow-2xl transition-shadow duration-300 min-h-[350px]">
         <div
           className="w-full bg-[#143AA2] rounded-md p-2 h-fit text-center font-bold text-white animate-fade-in-down"
           style={{ animationDelay: "0.2s", animationFillMode: "both" }}
