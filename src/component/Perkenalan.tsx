@@ -31,7 +31,7 @@ function Perkenalan({ profile }: PerkenalanProps) {
     <>
       <div
         id="bio"
-        className="flex flex-col py-8 md:py-24 items-center mt-16 justify-center bg-gradient-to-br from-[#4A97ED] via-[#3E8DE3] to-[#2E6FBF] animate-fade-in"
+        className="flex flex-col py-8 md:py-24 items-center mt-16 justify-center bg-[#3E8DE3] animate-fade-in"
       >
         <div className="flex flex-col md:flex-row justify-between items-center w-full px-8 md:px-32 gap-8 md:gap-0">
           {/* Foto Profil */}
@@ -84,7 +84,7 @@ function Perkenalan({ profile }: PerkenalanProps) {
       </div>
       <Wave
         flip={true}
-        color="#2E6FBF"
+        color="#3E8DE3"
         className="animate-fade-in"
         style={{ animationDelay: "0.6s", animationFillMode: "both" } as React.CSSProperties}
       />

@@ -15,7 +15,7 @@ function Portofolio({ projects }: PortofolioProps) {
     <>
       <div
         id="projects"
-        className="flex flex-col w-full bg-[#3E8DE3] justify-center items-center pt-12 pb-4"
+        className="flex flex-col w-full bg-[#3E8DE3] justify-center items-center pt-4 pb-8"
       >
         <h2 className="text-center text-4xl font-bold text-white mb-2 animate-fade-in-down">
           Projects
