@@ -58,6 +58,15 @@ function useNavbar(): UseNavbarReturn {
           }
         }
       });
+
+      // Jika mentok di bawah halaman, paksa section terakhir aktif
+      // untuk kasus tinggi section terakhir relatif pendek.
+      const pageBottom = window.scrollY + window.innerHeight;
+      const documentBottom = document.documentElement.scrollHeight;
+      if (pageBottom >= documentBottom - 2) {
+        current = SECTIONS.length - 1;
+      }
+
       setActiveIndex(current);
     };
 

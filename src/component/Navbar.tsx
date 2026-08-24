@@ -15,9 +15,11 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled || isOpen
-        ? "bg-white/90 backdrop-blur-md text-black shadow-lg"
-        : "bg-white text-black shadow-sm"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isOpen
+        ? "bg-white/95 backdrop-blur-md text-black shadow-lg"
+        : isScrolled
+          ? "bg-transparent text-black shadow-none"
+          : "bg-white text-black shadow-sm"
         }`}
     >
       <div className="flex justify-between items-center px-6 py-4 h-16">

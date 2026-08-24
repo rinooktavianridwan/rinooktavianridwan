@@ -13,17 +13,17 @@ function Contact({ contacts }: ContactProps) {
   return (
     <div
       id="contact"
-      className="flex justify-center items-center w-full py-16 px-4 bg-white"
+      className="flex justify-center items-center w-full py-20 md:py-24 px-4 bg-white min-h-[42vh] md:min-h-[50vh]"
     >
-      <div className="flex flex-col gap-4 justify-start items-center bg-[#3E8DE3] p-8 w-full max-w-[350px] md:max-w-[600px] rounded-xl shadow-xl animate-scale-in hover:shadow-2xl transition-shadow duration-300">
+      <div className="flex flex-col gap-6 justify-start items-center bg-[#3E8DE3] p-8 md:p-10 w-full max-w-[420px] md:max-w-[760px] rounded-xl shadow-xl animate-scale-in hover:shadow-2xl transition-shadow duration-300">
         <div
-          className="w-full bg-[#143AA2] rounded-md p-2 h-fit text-center font-bold text-white animate-fade-in-down"
+          className="w-full bg-[#143AA2] rounded-md py-3 h-fit text-center text-lg font-bold text-white animate-fade-in-down"
           style={{ animationDelay: "0.2s", animationFillMode: "both" }}
         >
           Contact
         </div>
         <div
-          className="flex flex-wrap gap-4 justify-center items-center animate-fade-in-up"
+          className="flex flex-wrap gap-5 md:gap-6 justify-center items-center animate-fade-in-up"
           style={{ animationDelay: "0.4s", animationFillMode: "both" }}
         >
           {visibleContacts.length > 0 ? (

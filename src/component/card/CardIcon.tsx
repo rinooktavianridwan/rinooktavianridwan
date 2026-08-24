@@ -33,7 +33,7 @@ function CardIcon({ color, destination, source, platformName }: CardIconProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={platformName || "social link"}
-        className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-125 hover:rotate-12 hover:shadow-xl relative overflow-hidden group"
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:rotate-6 hover:shadow-xl relative overflow-hidden group"
         style={{
           backgroundColor: color,
           boxShadow: `0 4px 15px ${color}40`,
@@ -45,14 +45,14 @@ function CardIcon({ color, destination, source, platformName }: CardIconProps) {
         ></div>
 
         {isEmoji ? (
-          <span className="text-2xl relative z-10 group-hover:scale-110 transition-transform duration-300">
+          <span className="text-2xl md:text-3xl relative z-10 group-hover:scale-105 transition-transform duration-300">
             {source}
           </span>
         ) : (
           <img
             src={source}
             alt={platformName || "social"}
-            className="w-6 h-6 relative z-10 group-hover:scale-110 transition-transform duration-300"
+            className="w-7 h-7 md:w-8 md:h-8 relative z-10 group-hover:scale-105 transition-transform duration-300"
           />
         )}
       </a>

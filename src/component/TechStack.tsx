@@ -9,10 +9,9 @@ type TechStackProps = {
 function TechStack({ technologies }: TechStackProps) {
     const visibleTechs = technologies.filter((tech) => tech.isVisible);
 
-    const rowSize = Math.ceil(visibleTechs.length / 3);
+    const rowSize = Math.ceil(visibleTechs.length / 2);
     const row1 = visibleTechs.slice(0, rowSize);
-    const row2 = visibleTechs.slice(rowSize, rowSize * 2);
-    const row3 = visibleTechs.slice(rowSize * 2);
+    const row2 = visibleTechs.slice(rowSize);
 
     const fadeMaskStyle: React.CSSProperties = {
         maskImage:
@@ -23,7 +22,7 @@ function TechStack({ technologies }: TechStackProps) {
 
     const TechBadge = ({ tech }: { tech: TechnologyResponse }) => (
         <div
-            className="inline-flex items-center flex-shrink-0 px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 cursor-pointer"
+            className="inline-flex items-center flex-shrink-0 px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
             style={{
                 backgroundColor: `${tech.color}15`,
                 color: tech.color,
@@ -59,28 +58,19 @@ function TechStack({ technologies }: TechStackProps) {
                         {visibleTechs.length > 0 ? (
                             <>
                                 {row1.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap">
-                                            {[...row1, ...row1].map((tech, index) => (
+                                    <div className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3" style={fadeMaskStyle}>
+                                        <div className="flex w-max gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap will-change-transform">
+                                            {[...row1, ...row1, ...row1].map((tech, index) => (
                                                 <TechBadge key={`row1-${index}`} tech={tech} />
                                             ))}
                                         </div>
                                     </div>
                                 )}
                                 {row2.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-right hover:pause whitespace-nowrap">
-                                            {[...row2, ...row2].map((tech, index) => (
+                                    <div className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3" style={fadeMaskStyle}>
+                                        <div className="flex w-max gap-6 animate-scroll-right hover:pause whitespace-nowrap will-change-transform">
+                                            {[...row2, ...row2, ...row2].map((tech, index) => (
                                                 <TechBadge key={`row2-${index}`} tech={tech} />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                {row3.length > 0 && (
-                                    <div className="relative overflow-hidden w-full" style={fadeMaskStyle}>
-                                        <div className="flex gap-6 animate-scroll-left hover:pause whitespace-nowrap">
-                                            {[...row3, ...row3].map((tech, index) => (
-                                                <TechBadge key={`row3-${index}`} tech={tech} />
                                             ))}
                                         </div>
                                     </div>
