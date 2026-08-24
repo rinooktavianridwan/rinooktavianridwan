@@ -101,7 +101,7 @@ function Card({ project }: CardProps) {
         className="fixed inset-0 bg-blue-900/95 flex justify-center items-center z-50"
         onClick={() => setShow(false)}
       >
-        <div className="relative w-11/12 md:w-4/5" onClick={(e) => e.stopPropagation()}>
+        <div className="relative w-11/12 md:w-4/5 lg:w-[72%] xl:w-[65%] max-w-[1200px]" onClick={(e) => e.stopPropagation()}>
           <button
             type="button"
             aria-label="Tutup video"
@@ -112,16 +112,14 @@ function Card({ project }: CardProps) {
           </button>
           {documentationUrl ? (
             <iframe
-              width="100%"
-              height="315"
               src={documentationUrl}
               title="YouTube video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="rounded-lg shadow-lg"
+              className="w-full aspect-video rounded-lg shadow-lg"
             ></iframe>
           ) : (
-            <div className="flex justify-center items-center w-full h-72 bg-black rounded-lg">
+            <div className="flex justify-center items-center w-full aspect-video bg-black rounded-lg">
               <p className="text-[#D3D4D7] text-xl">Video Not Added Yet</p>
             </div>
           )}

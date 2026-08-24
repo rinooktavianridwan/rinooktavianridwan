@@ -8,3 +8,7 @@
   }
 }
 
+.tech-marquee-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+

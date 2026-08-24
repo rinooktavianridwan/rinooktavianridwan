@@ -1,6 +1,9 @@
 import type { TechnologyResponse } from "../api/types";
 import { isEmojiIcon } from "../utils/icon.util";
 import Wave from "./Wave";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 type TechStackProps = {
     technologies: TechnologyResponse[];
@@ -40,6 +43,51 @@ function TechStack({ technologies }: TechStackProps) {
         </div>
     );
 
+    const TechMarqueeRow = ({
+        row,
+        reverse = false,
+        speed = 6500,
+    }: {
+        row: TechnologyResponse[];
+        reverse?: boolean;
+        speed?: number;
+    }) => {
+        if (!row.length) {
+            return null;
+        }
+
+        return (
+            <div
+                className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3"
+                style={fadeMaskStyle}
+                dir={reverse ? "rtl" : "ltr"}
+            >
+                <Swiper
+                    modules={[Autoplay]}
+                    loop={row.length > 1}
+                    loopAdditionalSlides={row.length * 4}
+                    speed={speed}
+                    autoplay={{
+                        delay: 1,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: false,
+                        waitForTransition: true,
+                    }}
+                    slidesPerView="auto"
+                    spaceBetween={24}
+                    allowTouchMove={false}
+                    className="tech-marquee-swiper !overflow-visible"
+                >
+                    {row.map((tech) => (
+                        <SwiperSlide key={tech.id} className="!w-auto pb-1">
+                            <TechBadge tech={tech} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+        );
+    };
+
     return (
         <>
             <div id="techstack" className="w-full bg-white py-16 pb-20 overflow-hidden">
@@ -57,24 +105,8 @@ function TechStack({ technologies }: TechStackProps) {
                     <div className="space-y-6">
                         {visibleTechs.length > 0 ? (
                             <>
-                                {row1.length > 0 && (
-                                    <div className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3" style={fadeMaskStyle}>
-                                        <div className="flex w-max gap-6 animate-scroll-left-slow hover:pause whitespace-nowrap will-change-transform">
-                                            {[...row1, ...row1, ...row1].map((tech, index) => (
-                                                <TechBadge key={`row1-${index}`} tech={tech} />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                {row2.length > 0 && (
-                                    <div className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3" style={fadeMaskStyle}>
-                                        <div className="flex w-max gap-6 animate-scroll-right hover:pause whitespace-nowrap will-change-transform">
-                                            {[...row2, ...row2, ...row2].map((tech, index) => (
-                                                <TechBadge key={`row2-${index}`} tech={tech} />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
+                                <TechMarqueeRow row={row1} speed={7000} />
+                                <TechMarqueeRow row={row2} reverse speed={7000} />
                             </>
                         ) : (
                             <p className="text-center text-gray-500 text-lg py-8">
