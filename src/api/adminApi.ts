@@ -60,15 +60,23 @@ export function fetchContact(id: number): Promise<ContactResponse> {
 
 export function createContact(
   body: CreateContactRequest,
+  icon?: File,
 ): Promise<void> {
-  return apiRequest<void>("/contacts", { method: "POST", body });
+  return apiRequest<void>("/contacts", {
+    method: "POST",
+    formData: buildContactForm(body, icon),
+  });
 }
 
 export function updateContact(
   id: number,
   body: UpdateContactRequest,
+  icon?: File,
 ): Promise<void> {
-  return apiRequest<void>(`/contacts/${id}`, { method: "PUT", body });
+  return apiRequest<void>(`/contacts/${id}`, {
+    method: "PUT",
+    formData: buildContactForm(body, icon),
+  });
 }
 
 export function deleteContact(id: number): Promise<void> {
@@ -160,6 +168,23 @@ function buildTechnologyForm(
   if (body.description) formData.append("description", body.description);
   if (body.color) formData.append("color", body.color);
   if (body.iconUrl) formData.append("iconUrl", body.iconUrl);
+  if (body.isVisible !== undefined) {
+    formData.append("isVisible", String(body.isVisible));
+  }
+  if (icon) formData.append("icon", icon);
+  return formData;
+}
+
+function buildContactForm(
+  body: CreateContactRequest | UpdateContactRequest,
+  icon?: File,
+): FormData {
+  const formData = new FormData();
+  if (body.platformName) formData.append("platformName", body.platformName);
+  if (body.url) formData.append("url", body.url);
+  if (body.iconUrl) formData.append("iconUrl", body.iconUrl);
+  if (body.color) formData.append("color", body.color);
+  if (body.order !== undefined) formData.append("order", String(body.order));
   if (body.isVisible !== undefined) {
     formData.append("isVisible", String(body.isVisible));
   }

@@ -25,16 +25,16 @@ export default function Pagination({ meta, onPageChange }: PaginationProps) {
   const pageNumbers = getPageNumbers(meta.current_page, meta.total_pages);
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 text-sm text-gray-600">
-      <span>
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 text-sm text-slate-600">
+      <span className="font-medium">
         Menampilkan {meta.per_page} dari {meta.total} data
       </span>
-      <div className="flex gap-1">
+      <div className="flex gap-1.5 rounded-xl border border-[#d9e6fb] bg-white/90 p-1 shadow-sm">
         <button
           type="button"
           disabled={!meta.has_prev_page}
           onClick={() => onPageChange(meta.current_page - 1)}
-          className="px-3 py-1.5 border border-gray-300 rounded-md disabled:opacity-40 hover:bg-gray-100"
+          className="px-3 py-1.5 border border-[#d3e0f7] rounded-lg disabled:opacity-40 hover:bg-[#eef4ff]"
         >
           Prev
         </button>
@@ -48,10 +48,10 @@ export default function Pagination({ meta, onPageChange }: PaginationProps) {
               key={p}
               type="button"
               onClick={() => onPageChange(p)}
-              className={`px-3 py-1.5 border rounded-md ${
+              className={`px-3 py-1.5 border rounded-lg ${
                 p === meta.current_page
                   ? "bg-[#3E8DE3] text-white border-[#3E8DE3]"
-                  : "border-gray-300 hover:bg-gray-100"
+                  : "border-[#d3e0f7] hover:bg-[#eef4ff]"
               }`}
             >
               {p}
@@ -62,7 +62,7 @@ export default function Pagination({ meta, onPageChange }: PaginationProps) {
           type="button"
           disabled={!meta.has_next_page}
           onClick={() => onPageChange(meta.current_page + 1)}
-          className="px-3 py-1.5 border border-gray-300 rounded-md disabled:opacity-40 hover:bg-gray-100"
+          className="px-3 py-1.5 border border-[#d3e0f7] rounded-lg disabled:opacity-40 hover:bg-[#eef4ff]"
         >
           Next
         </button>

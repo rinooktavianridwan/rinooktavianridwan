@@ -287,7 +287,7 @@ export default function TechnologiesPage() {
       />
 
       {error && !loading && (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-md mb-4">
+        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
           {error}
         </div>
       )}
@@ -295,7 +295,7 @@ export default function TechnologiesPage() {
       {loading ? (
         <LoadingScreen />
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white/92 backdrop-blur rounded-2xl border border-[#d9e6fb] shadow-[0_12px_28px_rgba(17,24,39,0.08)]">
           <EmptyState message="Belum ada teknologi. Klik 'Tambah Teknologi' untuk membuat." />
         </div>
       ) : (
@@ -313,7 +313,7 @@ export default function TechnologiesPage() {
             }
           >
             {items.map((technology) => (
-              <tr key={technology.id} className="hover:bg-gray-50">
+              <tr key={technology.id} className="hover:bg-[#f6f9ff]">
                 <td className="px-4 py-3 font-semibold text-gray-800">
                   {technology.name}
                 </td>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { resolveAssetUrl } from "../../api/client";
 import {
   createProject,
   deleteProject,
@@ -26,6 +25,7 @@ import {
   Button,
   EmptyState,
   Field,
+  IconPreview,
   Input,
   LoadingScreen,
   PageHeader,
@@ -91,11 +91,7 @@ function ImageGrid({
     onRemove: () => void,
   ) => (
     <div className="relative group border border-gray-200 rounded-lg overflow-hidden">
-      <img
-        src={resolveAssetUrl(src)}
-        alt={label}
-        className="w-full h-28 object-cover"
-      />
+      <IconPreview src={src} alt={label} sizeClass="w-full h-28" />
       <button
         type="button"
         aria-label={`Hapus ${label}`}
@@ -440,7 +436,7 @@ export default function ProjectsPage() {
       />
 
       {error && !loading && (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-md mb-4">
+        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
           {error}
         </div>
       )}
@@ -448,7 +444,7 @@ export default function ProjectsPage() {
       {loading ? (
         <LoadingScreen />
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white/92 backdrop-blur rounded-2xl border border-[#d9e6fb] shadow-[0_12px_28px_rgba(17,24,39,0.08)]">
           <EmptyState message="Belum ada project. Klik 'Tambah Project' untuk membuat." />
         </div>
       ) : (
@@ -465,7 +461,7 @@ export default function ProjectsPage() {
             }
           >
             {items.map((project) => (
-              <tr key={project.id} className="hover:bg-gray-50">
+              <tr key={project.id} className="hover:bg-[#f6f9ff]">
                 <td className="px-4 py-3">
                   <p className="font-semibold text-gray-800">{project.title}</p>
                   <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">
@@ -474,10 +470,10 @@ export default function ProjectsPage() {
                 </td>
                 <td className="px-4 py-3">
                   {project.images && project.images.length > 0 ? (
-                    <img
-                      src={resolveAssetUrl(project.images[0].imageUrl)}
+                    <IconPreview
+                      src={project.images[0].imageUrl}
                       alt={project.title}
-                      className="w-16 h-12 object-cover rounded-md"
+                      sizeClass="w-16 h-12"
                     />
                   ) : (
                     <span className="text-xs text-gray-400">Tidak ada</span>

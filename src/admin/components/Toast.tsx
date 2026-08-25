@@ -10,9 +10,9 @@ interface ToastItem {
 }
 
 const styles: Record<ToastType, string> = {
-  success: "bg-emerald-600",
-  error: "bg-red-600",
-  info: "bg-[#143AA2]",
+  success: "bg-emerald-600/95 border-emerald-300/30",
+  error: "bg-red-600/95 border-red-300/30",
+  info: "bg-[#143AA2]/95 border-[#8fb7ff]/30",
 };
 
 export default function ToastProvider({ children }: { children: ReactNode }) {
@@ -38,7 +38,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`${styles[toast.type]} text-white px-4 py-3 rounded-md shadow-lg text-sm font-medium`}
+            className={`${styles[toast.type]} text-white px-4 py-3 rounded-xl border shadow-[0_14px_32px_rgba(15,23,42,0.35)] text-sm font-medium backdrop-blur-sm`}
           >
             {toast.message}
           </div>

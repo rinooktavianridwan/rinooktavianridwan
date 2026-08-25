@@ -89,10 +89,10 @@ export default function ProfilePage() {
     <div>
       <PageHeader title="Profile" subtitle="Kelola informasi profil kamu" />
 
-      <div className="max-w-2xl">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center gap-5 mb-6">
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#3E8DE3] bg-gray-100 flex items-center justify-center">
+      <div className="w-full max-w-5xl">
+        <div className="bg-white rounded-2xl border border-[#d9e6fb] shadow-[0_12px_28px_rgba(17,24,39,0.08)] p-6 md:p-7">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-7">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-[3px] border-[#3E8DE3] bg-slate-100 flex items-center justify-center shadow-md">
               {photoSrc ? (
                 <img
                   src={photoSrc}
@@ -106,10 +106,10 @@ export default function ProfilePage() {
               )}
             </div>
             <div>
-              <p className="text-lg font-bold text-gray-800">
+              <p className="text-lg font-bold text-slate-800 tracking-tight">
                 {user.name || user.username}
               </p>
-              <p className="text-sm text-gray-500">@{user.username}</p>
+              <p className="text-sm text-slate-500">@{user.username}</p>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -126,7 +126,7 @@ export default function ProfilePage() {
               />
               <Button
                 variant="secondary"
-                className="mt-2 !px-3 !py-1 text-xs"
+                className="mt-2 !px-3 !py-1.5 text-xs"
                 loading={uploading}
                 onClick={() => fileInputRef.current?.click()}
               >

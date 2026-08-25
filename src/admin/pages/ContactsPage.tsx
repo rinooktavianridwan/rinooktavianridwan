@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import {
   createContact,
@@ -69,30 +69,45 @@ function ContactFormModal({
   editing: ContactResponse | null;
   saving: boolean;
   onClose: () => void;
-  onSubmit: (payload: CreateContactRequest | UpdateContactRequest) => void;
+  onSubmit: (
+    payload: CreateContactRequest | UpdateContactRequest,
+    icon?: File,
+  ) => void;
 }) {
   const [form, setForm] = useState<ContactForm>(emptyForm);
+  const [iconFile, setIconFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
       setForm(editing ? toForm(editing) : emptyForm);
+      setIconFile(null);
+      setPreviewUrl("");
     }
   }, [open, editing]);
 
   const set = <K extends keyof ContactForm>(key: K, value: ContactForm[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
+  const handleFile = (file: File) => {
+    setIconFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSubmit({
       platformName: form.platformName.trim(),
       url: form.url.trim(),
-      iconUrl: form.iconUrl.trim(),
+      iconUrl: iconFile ? undefined : form.iconUrl.trim() || undefined,
       color: form.color,
       order: form.order === "" ? undefined : Number(form.order),
       isVisible: form.isVisible,
-    });
+    }, iconFile ?? undefined);
   };
+
+  const previewSrc = previewUrl || form.iconUrl || undefined;
 
   return (
     <Modal
@@ -128,16 +143,47 @@ function ContactFormModal({
           />
         </Field>
         <Field
-          label="Icon (URL gambar atau emoji)"
-          required
-          hint="Contoh: https://.../icon.svg atau 📧"
+          label="Icon"
+          hint="Upload file gambar, atau isi URL/emoji (mis. 📧)"
         >
-          <Input
-            value={form.iconUrl}
-            onChange={(e) => set("iconUrl", e.target.value)}
-            placeholder="https://... atau 📧"
-            required
-          />
+          <div className="flex items-center gap-3">
+            {previewSrc && <IconPreview src={previewSrc} alt={form.platformName || "icon"} />}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleFile(file);
+                e.target.value = "";
+              }}
+            />
+            <Button
+              variant="secondary"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {iconFile ? "Ganti File" : "Upload Icon"}
+            </Button>
+            {iconFile && (
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setIconFile(null);
+                  setPreviewUrl("");
+                }}
+              >
+                Hapus File
+              </Button>
+            )}
+          </div>
+          <div className="mt-2">
+            <Input
+              value={form.iconUrl}
+              onChange={(e) => set("iconUrl", e.target.value)}
+              placeholder="atau URL/emoji icon"
+            />
+          </div>
         </Field>
         <div className="grid grid-cols-2 gap-4">
           <Field label="Warna">
@@ -192,14 +238,15 @@ export default function ContactsPage() {
 
   const handleSubmit = async (
     payload: CreateContactRequest | UpdateContactRequest,
+    icon?: File,
   ) => {
     setSaving(true);
     try {
       if (editing) {
-        await updateContact(editing.id, payload);
+        await updateContact(editing.id, payload, icon);
         toast.show("Kontak berhasil diperbarui");
       } else {
-        await createContact(payload as CreateContactRequest);
+        await createContact(payload as CreateContactRequest, icon);
         toast.show("Kontak berhasil ditambahkan");
       }
       setModalOpen(false);
@@ -243,7 +290,7 @@ export default function ContactsPage() {
       />
 
       {error && !loading && (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-md mb-4">
+        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
           {error}
         </div>
       )}
@@ -251,7 +298,7 @@ export default function ContactsPage() {
       {loading ? (
         <LoadingScreen />
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white/92 backdrop-blur rounded-2xl border border-[#d9e6fb] shadow-[0_12px_28px_rgba(17,24,39,0.08)]">
           <EmptyState message="Belum ada kontak. Klik 'Tambah Kontak' untuk membuat." />
         </div>
       ) : (
@@ -270,7 +317,7 @@ export default function ContactsPage() {
             }
           >
             {items.map((contact) => (
-              <tr key={contact.id} className="hover:bg-gray-50">
+              <tr key={contact.id} className="hover:bg-[#f6f9ff]">
                 <td className="px-4 py-3 font-semibold text-gray-800">
                   {contact.platformName}
                 </td>

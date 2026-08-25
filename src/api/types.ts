@@ -110,7 +110,7 @@ export interface UpdateUserRequest {
 export interface CreateContactRequest {
   platformName: string;
   url: string;
-  iconUrl: string;
+  iconUrl?: string;
   color?: string;
   order?: number;
   isVisible?: boolean;

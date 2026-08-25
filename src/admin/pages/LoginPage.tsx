@@ -31,20 +31,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#4A97ED] via-[#3E8DE3] to-[#2E6FBF] px-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#4A97ED] via-[#3E8DE3] to-[#2E6FBF] px-4 overflow-hidden">
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/15 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-[#143AA2]/30 blur-3xl" />
+
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white rounded-xl shadow-xl p-8"
+        className="w-full max-w-sm bg-white/95 backdrop-blur rounded-2xl shadow-[0_28px_60px_rgba(12,30,78,0.35)] border border-white/40 p-8"
       >
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-1">
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-[#2E6FBF] font-semibold mb-2">
+          Portofolio Dashboard
+        </p>
+        <h1 className="text-2xl font-bold text-slate-800 text-center mb-1 tracking-tight">
           Admin Login
         </h1>
-        <p className="text-sm text-gray-500 text-center mb-6">
+        <p className="text-sm text-slate-500 text-center mb-6">
           Masuk untuk mengelola portofolio
         </p>
 
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2 rounded-md">
+          <div className="mb-4 bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2 rounded-xl">
             {error}
           </div>
         )}
@@ -70,7 +76,7 @@ export default function LoginPage() {
           </Field>
         </div>
 
-        <Button type="submit" className="w-full mt-6" loading={loading}>
+        <Button type="submit" className="w-full mt-6" loading={loading} variant="primary-dark">
           Masuk
         </Button>
       </form>
