@@ -12,7 +12,8 @@ pipeline {
                 nodejs(nodeJSInstallationName: 'NodeJS26') {
                     sh '''
                     npm install -g pnpm
-                    pnpm install --frozen-lockfile --approve-builds
+                    pnpm config set only-built-dependencies[+] esbuild
+                    pnpm install --frozen-lockfile
                     pnpm run lint
                     pnpm run test -- --watchAll=false --ci
                     '''
