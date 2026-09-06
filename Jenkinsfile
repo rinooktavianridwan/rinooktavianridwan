@@ -12,8 +12,7 @@ pipeline {
                 nodejs(nodeJSInstallationName: 'NodeJS26') {
                     sh '''
                     npm install -g pnpm
-                    pnpm install --frozen-lockfile --ignore-scripts
-                    pnpm approve-builds esbuild
+                    pnpm config set pnpm_package_allow_scripts esbuild
                     pnpm install --frozen-lockfile
                     pnpm run lint
                     pnpm run test -- --watchAll=false --ci
