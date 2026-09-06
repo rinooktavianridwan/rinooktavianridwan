@@ -28,10 +28,8 @@
 
 # 📊 GitHub Stats
 
-<img src="https://github-readme-stats.shion.dev/api?username=rinooktavianridwan&theme=dark&hide_border=false&include_all_commits=true&count_private=true&hide_rank=true" />
-<img src="https://streak-stats.demolab.com/?user=rinooktavianridwan&theme=dark&hide_border=false" />
-<br/>
-<img src="https://github-readme-stats.shion.dev/api/top-langs/?username=rinooktavianridwan&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
+<img src="https://github-readme-stats.shion.dev/api?username=rinooktavianridwan&theme=dark&hide_border=false&include_all_commits=true&count_private=true&hide_rank=true&card_width=420" />
+<img src="https://github-readme-stats.shion.dev/api/top-langs/?username=rinooktavianridwan&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact&card_width=420&langs_count=6" />
 
 </div>
 
