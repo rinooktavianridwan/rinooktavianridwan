@@ -12,7 +12,6 @@ pipeline {
                 nodejs(nodeJSInstallationName: 'NodeJS26') {
                     sh '''
                     npm install -g pnpm
-                    corepack enable
                     pnpm install --frozen-lockfile --ignore-scripts
                     pnpm approve-builds esbuild
                     pnpm install --frozen-lockfile
