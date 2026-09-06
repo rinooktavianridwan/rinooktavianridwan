@@ -11,7 +11,7 @@ pipeline {
             steps {
                 nodejs(nodeJSInstallationName: 'NodeJS26') {
                     sh '''
-                    corepack enable
+                    npm install -g pnpm
                     pnpm install --frozen-lockfile
                     pnpm run lint
                     pnpm run test -- --watchAll=false --ci
