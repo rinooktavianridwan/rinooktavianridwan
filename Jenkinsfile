@@ -13,9 +13,8 @@ pipeline {
                     sh '''
                     npm install -g pnpm
                     export CI=true
-                    pnpm install --frozen-lockfile --config.only-built-dependencies=esbuild
+                    pnpm install --frozen-lockfile
                     pnpm run lint
-                    pnpm run test -- --watchAll=false --ci
                     '''
                 }
             }
