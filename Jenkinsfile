@@ -12,7 +12,8 @@ pipeline {
                 nodejs(nodeJSInstallationName: 'NodeJS26') {
                     sh '''
                     npm install -g pnpm
-                    pnpm install --frozen-lockfile
+                    export CI=true
+                    pnpm install --frozen-lockfile --config.only-built-dependencies=esbuild
                     pnpm run lint
                     pnpm run test -- --watchAll=false --ci
                     '''
