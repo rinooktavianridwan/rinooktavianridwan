@@ -26,11 +26,16 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh '''
-                echo "Memulai deployment Frontend ke VPS..."
-                docker compose -f docker-compose.yml build --no-cache
-                docker compose -f docker-compose.yml up -d
-                '''
+                withCredentials([file(credentialsId: 'prod-portfolio-fe-env', variable: 'ENV_FILE')]) {
+                    sh '''
+                    echo "Menyiapkan file .env FE dari Jenkins Credentials..."
+                    cp "$ENV_FILE" .env
+
+                    echo "Memulai deployment Frontend ke VPS..."
+                    docker compose -f docker-compose.yml build --no-cache
+                    docker compose -f docker-compose.yml up -d
+                    '''
+                }
             }
         }
         
@@ -39,7 +44,10 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'docker image prune -f'
+                sh '''
+                docker image prune -f
+                rm -f .env
+                '''
             }
         }
     }
