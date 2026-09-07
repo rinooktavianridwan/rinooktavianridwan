@@ -20,6 +20,32 @@ export function isApiEnabled(): boolean {
   return API_BASE_URL.length > 0;
 }
 
+function normalizeFullPortfolio(data: FullPortfolio): FullPortfolio {
+  const profilePictureUrl = resolveAssetUrl(data.profile?.profilePictureUrl);
+  return {
+    ...data,
+    profile: {
+      ...data.profile,
+      profilePictureUrl: profilePictureUrl || undefined,
+    },
+    contacts: (data.contacts ?? []).map((contact) => ({
+      ...contact,
+      iconUrl: resolveAssetUrl(contact.iconUrl) || contact.iconUrl,
+    })),
+    projects: (data.projects ?? []).map((project) => ({
+      ...project,
+      images: (project.images ?? []).map((image) => ({
+        ...image,
+        imageUrl: resolveAssetUrl(image.imageUrl) || image.imageUrl,
+      })),
+    })),
+    technologies: (data.technologies ?? []).map((technology) => ({
+      ...technology,
+      iconUrl: resolveAssetUrl(technology.iconUrl) || technology.iconUrl,
+    })),
+  };
+}
+
 export async function fetchFullPortfolio(
   baseUrl = getApiBaseUrl(),
 ): Promise<FullPortfolio> {
@@ -33,5 +59,5 @@ export async function fetchFullPortfolio(
   }
 
   const payload = (await res.json()) as ApiResponse<FullPortfolio>;
-  return payload.data;
+  return normalizeFullPortfolio(payload.data);
 }
