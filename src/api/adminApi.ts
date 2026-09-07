@@ -207,6 +207,9 @@ function buildProjectForm(
   if (body.isVisible !== undefined) {
     formData.append("isVisible", String(body.isVisible));
   }
+  if (body.order !== undefined) {
+    formData.append("order", String(body.order));
+  }
   if (body.technologyIds && body.technologyIds.length > 0) {
     formData.append("technologyIds", JSON.stringify(body.technologyIds));
   }

@@ -52,6 +52,7 @@ export interface ProjectResponse {
   githubUrl?: string;
   documentationUrl?: string;
   isVisible: boolean;
+  order?: number;
   userId?: number;
   createdAt: string;
   updatedAt: string;
@@ -154,6 +155,7 @@ export interface CreateProjectRequest {
   githubUrl?: string;
   documentationUrl?: string;
   isVisible?: boolean;
+  order?: number;
   technologyIds?: number[];
   images?: { imageUrl: string; order?: number }[];
 }
@@ -165,6 +167,7 @@ export interface UpdateProjectRequest {
   githubUrl?: string;
   documentationUrl?: string;
   isVisible?: boolean;
+  order?: number;
   technologyIds?: number[];
   images?: ProjectImageRequest[];
   deleteImageIds?: number[];
