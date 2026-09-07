@@ -41,6 +41,7 @@ interface ProjectForm {
   githubUrl: string;
   documentationUrl: string;
   isVisible: boolean;
+  order: string;
   technologyIds: number[];
 }
 
@@ -51,6 +52,7 @@ const emptyForm: ProjectForm = {
   githubUrl: "",
   documentationUrl: "",
   isVisible: true,
+  order: "0",
   technologyIds: [],
 };
 
@@ -62,6 +64,7 @@ function toForm(project: ProjectResponse): ProjectForm {
     githubUrl: project.githubUrl ?? "",
     documentationUrl: project.documentationUrl ?? "",
     isVisible: project.isVisible,
+    order: String(project.order ?? 0),
     technologyIds: (project.technologies ?? []).map((tech) => tech.id),
   };
 }
@@ -181,6 +184,7 @@ function ProjectFormModal({
       githubUrl: form.githubUrl.trim() || undefined,
       documentationUrl: form.documentationUrl.trim() || undefined,
       isVisible: form.isVisible,
+      order: form.order === "" ? undefined : Number(form.order),
       technologyIds: form.technologyIds,
     };
 
@@ -262,6 +266,15 @@ function ProjectFormModal({
             />
           </Field>
         </div>
+
+        <Field label="Urutan" hint="Semakin kecil semakin awal ditampilkan">
+          <Input
+            type="number"
+            min={0}
+            value={form.order}
+            onChange={(e) => set("order", e.target.value)}
+          />
+        </Field>
 
         <Field label="Teknologi yang digunakan">
           {technologies.length > 0 ? (
@@ -455,6 +468,7 @@ export default function ProjectsPage() {
                 <th className="px-4 py-3 text-left">Judul</th>
                 <th className="px-4 py-3 text-left">Gambar</th>
                 <th className="px-4 py-3 text-left">Teknologi</th>
+                <th className="px-4 py-3 text-center">Urutan</th>
                 <th className="px-4 py-3 text-center">Tampil</th>
                 <th className="px-4 py-3 text-right">Aksi</th>
               </tr>
@@ -495,6 +509,9 @@ export default function ProjectsPage() {
                       </Badge>
                     )}
                   </div>
+                </td>
+                <td className="px-4 py-3 text-center text-gray-600">
+                  {project.order ?? 0}
                 </td>
                 <td className="px-4 py-3 text-center">
                   {project.isVisible ? (
