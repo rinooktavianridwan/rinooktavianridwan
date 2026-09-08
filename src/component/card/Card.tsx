@@ -3,6 +3,7 @@ import ArrowUp from "../icon/ArrowUp";
 import CustomSwipper from "../../swiper/customSwipper";
 import { SwiperSlide } from "swiper/react";
 import type { ProjectResponse } from "../../api/types";
+import type { Swiper as SwiperInstance } from "swiper/types";
 
 interface CardProps {
   project: ProjectResponse;
@@ -12,7 +13,7 @@ function Card({ project }: CardProps) {
   const [show, setShow] = useState(false);
   const { title, description, images, websiteUrl, githubUrl, documentationUrl, technologies } =
     project;
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
 
   return (
     <>
@@ -52,7 +53,7 @@ function Card({ project }: CardProps) {
                         <button
                           key={idx}
                           type="button"
-                          onClick={() => swiperRef.current?.swiper?.slideToLoop(idx)}
+                          onClick={() => swiperRef.current?.slideToLoop(idx)}
                           className="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75 transition-all duration-300"
                           aria-label={`View image ${idx + 1}`}
                         />
@@ -74,13 +75,13 @@ function Card({ project }: CardProps) {
 
             <div className="flex flex-col gap-5 md:col-span-5 md:pl-4">
               <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 min-h-[150px] max-h-[220px] md:min-h-[180px] md:max-h-[240px] overflow-y-auto">
-                <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Description</h4>
+                <h4 className="text-sm font-semibold text-gray-500 tracking-wider mb-2">Description</h4>
                 <p className="text-base text-gray-700 leading-relaxed">{description}</p>
               </div>
 
               {technologies && technologies.length > 0 && (
                 <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100">
-                  <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Technologies</h4>
+                  <h4 className="text-sm font-semibold text-gray-500 tracking-wider mb-3">Technologies</h4>
                   <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                     {technologies.map((tech) => (
                       <span
