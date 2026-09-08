@@ -22,6 +22,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
 }) => {
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
+  const swiperId = `swiper-${navigationId}`;
 
   const handleSlideChange = (swiper: SwiperInstance) => {
     setIsPrevDisabled(swiper.isBeginning);
@@ -34,6 +35,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
       <button
         type="button"
         aria-label="Slide sebelumnya"
+        aria-controls={swiperId}
         className={`flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 shadow-md transition-all duration-200 custom-prev-btn-${navigationId} ${isPrevDisabled
             ? "opacity-40 cursor-not-allowed"
             : "opacity-100 hover:bg-white hover:scale-110"
@@ -45,6 +47,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
 
       {/* Swiper Component */}
       <Swiper
+        id={swiperId}
         modules={[Navigation]}
         navigation={{
           prevEl: `.custom-prev-btn-${navigationId}`,
@@ -67,6 +70,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
       <button
         type="button"
         aria-label="Slide berikutnya"
+        aria-controls={swiperId}
         className={`flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 shadow-md transition-all duration-200 custom-next-btn-${navigationId} ${isNextDisabled
             ? "opacity-40 cursor-not-allowed"
             : "opacity-100 hover:bg-white hover:scale-110"

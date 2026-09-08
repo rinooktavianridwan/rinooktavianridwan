@@ -7,6 +7,7 @@ import type {
 } from "react";
 import { useEffect, useState } from "react";
 import { resolveAssetUrl } from "../../api/client";
+import { isEmojiIcon } from "../../utils/icon.util";
 
 const variants = {
   primary:
@@ -258,8 +259,4 @@ export function IconPreview({
       )}
     </>
   );
-}
-
-function isEmojiIcon(value: string): boolean {
-  return value.length <= 2 && /\p{Emoji}/u.test(value);
 }

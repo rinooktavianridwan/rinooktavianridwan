@@ -99,7 +99,8 @@ export async function apiRequest<T>(
     throw new ApiError(extractErrorMessage(payload), res.status);
   }
 
-  return (payload as { data?: T })?.data as T;
+  const response = payload as { data?: T } | null;
+  return response?.data as T;
 }
 
 function extractErrorMessage(payload: unknown): string {

@@ -465,12 +465,12 @@ export default function ProjectsPage() {
           <Table
             head={
               <tr>
-                <th className="px-4 py-3 text-left">Judul</th>
-                <th className="px-4 py-3 text-left">Gambar</th>
-                <th className="px-4 py-3 text-left">Teknologi</th>
-                <th className="px-4 py-3 text-center">Urutan</th>
-                <th className="px-4 py-3 text-center">Tampil</th>
-                <th className="px-4 py-3 text-right">Aksi</th>
+                <th scope="col" className="px-4 py-3 text-left">Judul</th>
+                <th scope="col" className="px-4 py-3 text-left">Gambar</th>
+                <th scope="col" className="px-4 py-3 text-left">Teknologi</th>
+                <th scope="col" className="px-4 py-3 text-center">Urutan</th>
+                <th scope="col" className="px-4 py-3 text-center">Tampil</th>
+                <th scope="col" className="px-4 py-3 text-right">Aksi</th>
               </tr>
             }
           >

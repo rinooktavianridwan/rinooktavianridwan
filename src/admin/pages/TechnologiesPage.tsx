@@ -303,12 +303,12 @@ export default function TechnologiesPage() {
           <Table
             head={
               <tr>
-                <th className="px-4 py-3 text-left">Nama</th>
-                <th className="px-4 py-3 text-left">Icon</th>
-                <th className="px-4 py-3 text-left">Deskripsi</th>
-                <th className="px-4 py-3 text-left">Warna</th>
-                <th className="px-4 py-3 text-center">Tampil</th>
-                <th className="px-4 py-3 text-right">Aksi</th>
+                <th scope="col" className="px-4 py-3 text-left">Nama</th>
+                <th scope="col" className="px-4 py-3 text-left">Icon</th>
+                <th scope="col" className="px-4 py-3 text-left">Deskripsi</th>
+                <th scope="col" className="px-4 py-3 text-left">Warna</th>
+                <th scope="col" className="px-4 py-3 text-center">Tampil</th>
+                <th scope="col" className="px-4 py-3 text-right">Aksi</th>
               </tr>
             }
           >
