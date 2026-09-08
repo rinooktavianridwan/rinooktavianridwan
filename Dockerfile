@@ -8,7 +8,10 @@ RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm approve-builds esbui
 
 FROM deps AS build
 ARG VITE_API_URL=""
+ARG VITE_CV_URL=""
 ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_CV_URL=$VITE_CV_URL
+
 COPY . .
 RUN pnpm build
 
