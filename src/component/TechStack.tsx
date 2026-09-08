@@ -54,39 +54,40 @@ function TechStack({ technologies }: TechStackProps) {
             return null;
         }
 
-        // Trik: Jika bergerak ke kanan (menggunakan RTL), kita harus membalik array-nya 
-        // agar elemen pertama (index 0) tetap muncul duluan.
         const displayRow = moveRight ? [...row].reverse() : row;
+        
+        // Trik Jitu: Gandakan array agar Swiper tidak pernah kehabisan elemen saat looping
+        // Terutama jika item teknologi Anda masih kurang dari 10-15 item
+        const safeDisplayRow = [...displayRow, ...displayRow, ...displayRow];
 
         return (
             <div
                 className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3"
                 style={fadeMaskStyle}
-                // Menggunakan dir="rtl" menggantikan reverseDirection yang sering nge-bug
                 dir={moveRight ? "rtl" : "ltr"}
             >
                 <Swiper
-                    key={`swiper-${rowKey}`} // Membedakan instance Swiper agar tidak bentrok
+                    key={`swiper-${rowKey}`}
                     modules={[Autoplay]}
                     loop={true}
-                    loopAdditionalSlides={row.length * 4}
+                    loopAdditionalSlides={100}
                     speed={speed}
                     autoplay={{
-                        delay: 1,
+                        delay: 0,
                         disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                        waitForTransition: true,
+                        pauseOnMouseEnter: false,
                     }}
                     slidesPerView="auto"
                     spaceBetween={24}
                     allowTouchMove={false}
-                    className={`tech-marquee-swiper-${rowKey} !overflow-visible`}
+                    className={`tech-marquee-swiper tech-marquee-swiper-${rowKey} !overflow-visible`}
                 >
-                    {displayRow.map((tech, index) => (
+                    {safeDisplayRow.map((tech, index) => (
                         <SwiperSlide
+                            // Gunakan index sebagai bagian dari key karena array digandakan
                             key={`${tech.id}-${rowKey}-${index}`}
                             className="!w-auto pb-1"
-                            dir="ltr" // WAJIB ADA: Mengembalikan arah teks menjadi normal agar nama seperti "Next.js" tidak terbalik
+                            dir="ltr" 
                         >
                             <TechBadge tech={tech} />
                         </SwiperSlide>
