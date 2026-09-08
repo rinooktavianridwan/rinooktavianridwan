@@ -46,10 +46,7 @@ function Perkenalan({ profile }: PerkenalanProps) {
                 <img
                   src={profilePicture}
                   alt={name}
-                  className="absolute h-full object-cover scale-[1.5] top-[-30px] right-[15.5px] md:top-[-44px] md:right-[23.4px]"
-                  style={{
-                    clipPath: "inset(0 0 0 0 round 0 0 48.5% 48.5%)",
-                  }}
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
             </div>
