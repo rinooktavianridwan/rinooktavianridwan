@@ -12,10 +12,6 @@ type TechStackProps = {
 function TechStack({ technologies }: TechStackProps) {
     const visibleTechs = technologies.filter((tech) => tech.isVisible);
 
-    const rowSize = Math.ceil(visibleTechs.length / 2);
-    const row1 = visibleTechs.slice(0, rowSize);
-    const row2 = visibleTechs.slice(rowSize);
-
     const fadeMaskStyle: React.CSSProperties = {
         maskImage:
             "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
@@ -45,26 +41,34 @@ function TechStack({ technologies }: TechStackProps) {
 
     const TechMarqueeRow = ({
         row,
-        reverse = false,
+        moveRight = false,
         speed = 6500,
+        rowKey,
     }: {
         row: TechnologyResponse[];
-        reverse?: boolean;
+        moveRight?: boolean;
         speed?: number;
+        rowKey: string;
     }) => {
         if (!row.length) {
             return null;
         }
 
+        // Trik: Jika bergerak ke kanan (menggunakan RTL), kita harus membalik array-nya 
+        // agar elemen pertama (index 0) tetap muncul duluan.
+        const displayRow = moveRight ? [...row].reverse() : row;
+
         return (
             <div
                 className="relative overflow-x-hidden overflow-y-visible w-full py-3 -my-3"
                 style={fadeMaskStyle}
-                dir={reverse ? "rtl" : "ltr"}
+                // Menggunakan dir="rtl" menggantikan reverseDirection yang sering nge-bug
+                dir={moveRight ? "rtl" : "ltr"}
             >
                 <Swiper
+                    key={`swiper-${rowKey}`} // Membedakan instance Swiper agar tidak bentrok
                     modules={[Autoplay]}
-                    loop={row.length > 1}
+                    loop={true}
                     loopAdditionalSlides={row.length * 4}
                     speed={speed}
                     autoplay={{
@@ -76,10 +80,14 @@ function TechStack({ technologies }: TechStackProps) {
                     slidesPerView="auto"
                     spaceBetween={24}
                     allowTouchMove={false}
-                    className="tech-marquee-swiper !overflow-visible"
+                    className={`tech-marquee-swiper-${rowKey} !overflow-visible`}
                 >
-                    {row.map((tech) => (
-                        <SwiperSlide key={tech.id} className="!w-auto pb-1">
+                    {displayRow.map((tech, index) => (
+                        <SwiperSlide
+                            key={`${tech.id}-${rowKey}-${index}`}
+                            className="!w-auto pb-1"
+                            dir="ltr" // WAJIB ADA: Mengembalikan arah teks menjadi normal agar nama seperti "Next.js" tidak terbalik
+                        >
                             <TechBadge tech={tech} />
                         </SwiperSlide>
                     ))}
@@ -105,8 +113,21 @@ function TechStack({ technologies }: TechStackProps) {
                     <div className="space-y-6">
                         {visibleTechs.length > 0 ? (
                             <>
-                                <TechMarqueeRow row={row1} speed={7000} />
-                                <TechMarqueeRow row={row2} reverse speed={7000} />
+                                {/* Baris Atas: Urutan normal, gerak kiri ke kanan */}
+                                <TechMarqueeRow
+                                    row={visibleTechs}
+                                    moveRight={true}
+                                    speed={7000}
+                                    rowKey="top"
+                                />
+
+                                {/* Baris Bawah: Urutan dibalik, gerak kanan ke kiri (default Swiper) */}
+                                <TechMarqueeRow
+                                    row={[...visibleTechs].reverse()}
+                                    moveRight={false}
+                                    speed={7000}
+                                    rowKey="bottom"
+                                />
                             </>
                         ) : (
                             <p className="text-center text-gray-500 text-lg py-8">
