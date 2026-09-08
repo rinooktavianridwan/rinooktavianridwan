@@ -86,7 +86,7 @@ function Card({ project }: CardProps) {
                     {technologies.map((tech) => (
                       <span
                         key={tech.id}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full whitespace-nowrap shrink-0 w-max"
                         style={{
                           backgroundColor: `${tech.color}15`,
                           color: tech.color,
