@@ -42,9 +42,6 @@ function useNavbar(): UseNavbarReturn {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
 
-      // Section aktif = section terakhir yang bagian atasnya sudah
-      // terlewati sepertiga tinggi layar. Lebih tahan untuk section
-      // tinggi dibanding cuma mengecek "top" di rentang 0–50vh.
       const scrollMarker = window.scrollY + window.innerHeight / 3;
 
       let current = 0;
@@ -59,8 +56,6 @@ function useNavbar(): UseNavbarReturn {
         }
       });
 
-      // Jika mentok di bawah halaman, paksa section terakhir aktif
-      // untuk kasus tinggi section terakhir relatif pendek.
       const pageBottom = window.scrollY + window.innerHeight;
       const documentBottom = document.documentElement.scrollHeight;
       if (pageBottom >= documentBottom - 2) {
@@ -72,7 +67,7 @@ function useNavbar(): UseNavbarReturn {
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // set state awal begitu halaman dimuat
+    handleScroll();
 
     return () => {
       window.removeEventListener("resize", handleResize);

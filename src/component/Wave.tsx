@@ -12,9 +12,8 @@ function Wave({ flip = false, color, className = "", style }: WaveProps) {
                 viewBox="0 0 1200 120"
                 preserveAspectRatio="none"
                 className={`w-full h-32 ${flip ? 'scale-y-[-1]' : ''}`}
-                style={{ fill: color }}
             >
-                <path d="M0,80 C100,50 300,30 450,70 C600,110 750,50 900,80 C1050,110 1400,60 1200,120 L0,120 Z"></path>
+                <path d="M0,80 C100,50 300,30 450,70 C600,110 750,50 900,80 C1050,110 1400,60 1200,120 L0,120 Z" fill={color} />
             </svg>
         </div>
     );

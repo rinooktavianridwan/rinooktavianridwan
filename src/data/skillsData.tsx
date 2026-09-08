@@ -1,8 +1,5 @@
 import type { TechnologyResponse } from "../api/types";
 
-// Technology data aligned with backend schema
-// Backend: { name, description, iconUrl, color, isVisible }
-
 export const technologies: TechnologyResponse[] = [
     // Frontend
     { id: 1, name: 'React', iconUrl: '⚛️', color: '#61DAFB', isVisible: true },
