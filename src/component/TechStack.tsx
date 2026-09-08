@@ -55,9 +55,6 @@ function TechStack({ technologies }: TechStackProps) {
         }
 
         const displayRow = moveRight ? [...row].reverse() : row;
-        
-        // Trik Jitu: Gandakan array agar Swiper tidak pernah kehabisan elemen saat looping
-        // Terutama jika item teknologi Anda masih kurang dari 10-15 item
         const safeDisplayRow = [...displayRow, ...displayRow, ...displayRow];
 
         return (
@@ -84,10 +81,9 @@ function TechStack({ technologies }: TechStackProps) {
                 >
                     {safeDisplayRow.map((tech, index) => (
                         <SwiperSlide
-                            // Gunakan index sebagai bagian dari key karena array digandakan
                             key={`${tech.id}-${rowKey}-${index}`}
                             className="!w-auto pb-1"
-                            dir="ltr" 
+                            dir="ltr"
                         >
                             <TechBadge tech={tech} />
                         </SwiperSlide>
@@ -118,7 +114,7 @@ function TechStack({ technologies }: TechStackProps) {
                                 <TechMarqueeRow
                                     row={visibleTechs}
                                     moveRight={true}
-                                    speed={7000}
+                                    speed={4600}
                                     rowKey="top"
                                 />
 
@@ -129,7 +125,7 @@ function TechStack({ technologies }: TechStackProps) {
                                         ...visibleTechs.slice(0, Math.ceil(visibleTechs.length / 2)),
                                     ].reverse()}
                                     moveRight={false}
-                                    speed={7000}
+                                    speed={4600}
                                     rowKey="bottom"
                                 />
                             </>

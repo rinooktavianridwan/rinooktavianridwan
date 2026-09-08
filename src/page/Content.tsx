@@ -17,7 +17,6 @@ function Content() {
   const { data, loading, error } = usePortfolioData();
 
   if (error) {
-    // Tetap tampilkan data fallback ke user, ini cuma buat kebutuhan debug.
     console.warn("Portfolio API gagal, menampilkan data fallback:", error);
   }
 

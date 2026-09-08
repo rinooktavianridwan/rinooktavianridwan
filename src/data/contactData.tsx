@@ -3,9 +3,6 @@ import linkedin from "../assets/linkedin.svg";
 import instagram from "../assets/instagram.svg";
 import type { ContactResponse } from "../api/types";
 
-// Contact data aligned with backend schema
-// Backend: { platformName, url, iconUrl, color, order, isVisible }
-
 export const contactData: ContactResponse[] = [
   {
     id: 1,
@@ -39,7 +36,7 @@ export const contactData: ContactResponse[] = [
     platformName: "Email",
     color: "#EA4335",
     url: "mailto:rinooktavianridwan@gmail.com",
-    iconUrl: "📧", // Using emoji for email icon
+    iconUrl: "📧",
     order: 4,
     isVisible: true,
   },
@@ -48,7 +45,7 @@ export const contactData: ContactResponse[] = [
     platformName: "WhatsApp",
     color: "#25D366",
     url: "https://wa.me/6281234567890", // Replace with actual number
-    iconUrl: "💬", // Using emoji for WhatsApp icon
+    iconUrl: "💬",
     order: 5,
     isVisible: true,
   },
