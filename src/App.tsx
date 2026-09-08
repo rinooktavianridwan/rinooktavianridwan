@@ -11,6 +11,7 @@ import ContactsPage from "./admin/pages/ContactsPage";
 import Navbar from "./component/Navbar";
 import Content from "./page/Content";
 import Footer from "./component/Footer";
+import ErrorBoundary from "./component/ErrorBoundary";
 
 function PublicSite() {
   return (
@@ -26,7 +27,8 @@ function App() {
   return (
     <AuthProvider>
       <ToastProvider>
-        <Routes>
+        <ErrorBoundary>
+          <Routes>
           <Route path="/" element={<PublicSite />} />
           <Route path="/admin/login" element={<LoginPage />} />
           <Route path="/admin" element={<PrivateRoute />}>
@@ -40,6 +42,7 @@ function App() {
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </ErrorBoundary>
       </ToastProvider>
     </AuthProvider>
   );

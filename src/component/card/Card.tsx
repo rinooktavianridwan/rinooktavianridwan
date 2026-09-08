@@ -88,7 +88,7 @@ function Card({ project }: CardProps) {
             onClick={() => setShow(true)}
             className="w-full bg-[#2E5C99] hover:bg-[#1e3a5f] text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors"
           >
-            Documentation
+            Lihat Video
             <div className="transform rotate-45">
               <ArrowUp />
             </div>
@@ -100,6 +100,9 @@ function Card({ project }: CardProps) {
       <div
         className="fixed inset-0 bg-blue-900/95 flex justify-center items-center z-50"
         onClick={() => setShow(false)}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Dokumentasi project"
       >
         <div className="relative w-11/12 md:w-4/5 lg:w-[72%] xl:w-[65%] max-w-[1200px]" onClick={(e) => e.stopPropagation()}>
           <button

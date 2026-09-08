@@ -306,13 +306,13 @@ export default function ContactsPage() {
           <Table
             head={
               <tr>
-                <th className="px-4 py-3 text-left">Platform</th>
-                <th className="px-4 py-3 text-left">Icon</th>
-                <th className="px-4 py-3 text-left">URL</th>
-                <th className="px-4 py-3 text-left">Warna</th>
-                <th className="px-4 py-3 text-center">Urutan</th>
-                <th className="px-4 py-3 text-center">Tampil</th>
-                <th className="px-4 py-3 text-right">Aksi</th>
+                <th scope="col" className="px-4 py-3 text-left">Platform</th>
+                <th scope="col" className="px-4 py-3 text-left">Icon</th>
+                <th scope="col" className="px-4 py-3 text-left">URL</th>
+                <th scope="col" className="px-4 py-3 text-left">Warna</th>
+                <th scope="col" className="px-4 py-3 text-center">Urutan</th>
+                <th scope="col" className="px-4 py-3 text-center">Tampil</th>
+                <th scope="col" className="px-4 py-3 text-right">Aksi</th>
               </tr>
             }
           >

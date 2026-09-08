@@ -13,14 +13,16 @@ function Navbar() {
 
   const navRefs = useRef<HTMLLIElement[]>([]);
 
-  return (
+return (
     <nav
+      role="navigation"
+      aria-label="Navigasi utama"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isOpen
         ? "bg-white/95 backdrop-blur-md text-black shadow-lg"
         : isScrolled
-          ? "bg-transparent text-black shadow-none"
-          : "bg-white text-black shadow-sm"
-        }`}
+        ? "bg-white/10 backdrop-blur-sm text-black shadow-none"
+        : "bg-white text-black shadow-sm"
+      }`}
     >
       <div className="flex justify-between items-center px-6 py-4 h-16">
         {/* Desktop Navbar */}

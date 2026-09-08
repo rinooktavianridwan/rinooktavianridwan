@@ -74,7 +74,7 @@ function TechStack({ technologies }: TechStackProps) {
                     autoplay={{
                         delay: 1,
                         disableOnInteraction: false,
-                        pauseOnMouseEnter: false,
+                        pauseOnMouseEnter: true,
                         waitForTransition: true,
                     }}
                     slidesPerView="auto"
@@ -121,9 +121,12 @@ function TechStack({ technologies }: TechStackProps) {
                                     rowKey="top"
                                 />
 
-                                {/* Baris Bawah: Urutan dibalik, gerak kanan ke kiri (default Swiper) */}
+                                {/* Baris Bawah: Urutan dibalik + offset, gerak kanan ke kiri */}
                                 <TechMarqueeRow
-                                    row={[...visibleTechs].reverse()}
+                                    row={[
+                                        ...visibleTechs.slice(Math.ceil(visibleTechs.length / 2)),
+                                        ...visibleTechs.slice(0, Math.ceil(visibleTechs.length / 2)),
+                                    ].reverse()}
                                     moveRight={false}
                                     speed={7000}
                                     rowKey="bottom"
