@@ -39,6 +39,7 @@ function Portofolio({ projects }: PortofolioProps) {
               <CustomSwipper
                 className="w-full max-w-[95vw] md:max-w-[850px] lg:max-w-[1100px] h-[850px] min-[420px]:h-[750px] sm:h-[650px] md:h-[550px] lg:h-[500px] transition-all duration-300 ease-in-out"
                 navigationId="projects"
+                disableTouch
               >
                 {visibleProjects.map((project) => (
                   <SwiperSlide key={project.id} className="h-full">

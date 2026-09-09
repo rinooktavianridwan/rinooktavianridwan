@@ -25,7 +25,6 @@ function CardIcon({ color, destination, source, platformName }: CardIconProps) {
           style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
         >
           {platformName}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45 -translate-y-1/2" />
         </div>
       )}
 
