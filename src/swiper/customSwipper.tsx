@@ -12,6 +12,7 @@ type CustomSwipperProps = {
   className?: string;
   slidesPerView?: number;
   navigationId?: string;
+  disableTouch?: boolean;
 };
 
 const CustomSwipper: FC<CustomSwipperProps> = ({
@@ -19,6 +20,7 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
   className = "",
   slidesPerView = 1,
   navigationId = "default",
+  disableTouch = false,
 }) => {
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
@@ -58,6 +60,8 @@ const CustomSwipper: FC<CustomSwipperProps> = ({
         onSlideChange={handleSlideChange}
         onInit={(swiper) => handleSlideChange(swiper)}
         className="overflow-hidden flex-1 min-w-0"
+        allowTouchMove={!disableTouch}
+        simulateTouch={!disableTouch}
       >
         {React.Children.map(children, (child, index) => (
           <SwiperSlide key={index} className="flex justify-center items-center">

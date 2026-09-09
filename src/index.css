@@ -166,4 +166,22 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Thin scrollbar for tech tags */
+  .scrollbar-thin::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-[#3E8DE3]/30 rounded-full hover:bg-[#3E8DE3]/50;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#3E8DE3]/50;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #3E8DE3 transparent;
+  }
 }

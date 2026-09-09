@@ -82,7 +82,7 @@ function Card({ project }: CardProps) {
               {technologies && technologies.length > 0 && (
                 <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100">
                   <h4 className="text-sm font-semibold text-gray-500 tracking-wider mb-3">Technologies</h4>
-                  <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
                     {technologies.map((tech) => (
                       <span
                         key={tech.id}
