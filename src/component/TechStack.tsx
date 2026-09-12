@@ -1,25 +1,22 @@
 import type { TechnologyResponse } from "../api/types";
 import { isEmojiIcon } from "../utils/icon.util";
 import Wave from "./Wave";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
+import { useEffect, useRef, useState } from "react";
 
 type TechStackProps = {
     technologies: TechnologyResponse[];
 };
 
-function TechStack({ technologies }: TechStackProps) {
-    const visibleTechs = technologies.filter((tech) => tech.isVisible);
+type TechMarqueeRowProps = {
+    row: TechnologyResponse[];
+    moveRight?: boolean;
+    speed?: number;
+    rowKey: string;
+    fadeMaskStyle: React.CSSProperties;
+};
 
-    const fadeMaskStyle: React.CSSProperties = {
-        maskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-    };
-
-    const TechBadge = ({ tech }: { tech: TechnologyResponse }) => (
+function TechBadge({ tech }: { tech: TechnologyResponse }) {
+    return (
         <div
             className="inline-flex items-center flex-shrink-0 px-6 py-3 rounded-2xl text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group relative overflow-hidden"
             style={{
@@ -40,61 +37,81 @@ function TechStack({ technologies }: TechStackProps) {
             <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[200%] transition-transform duration-700 rounded-2xl" />
         </div>
     );
+}
 
-    const TechMarqueeRow = ({
-        row,
-        moveRight = false,
-        speed = 4600, // Default speed diubah agar lebih cepat
-        rowKey,
-    }: {
-        row: TechnologyResponse[];
-        moveRight?: boolean;
-        speed?: number;
-        rowKey: string;
-    }) => {
-        if (!row.length) {
-            return null;
-        }
+function TechMarqueeRow({ row, moveRight = false, speed = 20000, rowKey, fadeMaskStyle }: TechMarqueeRowProps) {
+    const displayRow = moveRight ? [...row].reverse() : row;
 
-        const displayRow = moveRight ? [...row].reverse() : row;
-        // Array tetap digandakan agar tidak kehabisan slide
-        const safeDisplayRow = [...displayRow, ...displayRow, ...displayRow];
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [trackWidth, setTrackWidth] = useState(0);
 
-        return (
+    useEffect(() => {
+        const track = trackRef.current;
+        if (!track) return;
+
+        const measure = () => {
+            const firstCopy = track.querySelector('[data-marquee-copy="first"]');
+            if (firstCopy) {
+                setTrackWidth(firstCopy.getBoundingClientRect().width);
+            }
+        };
+
+        measure();
+        const ro = new ResizeObserver(measure);
+        ro.observe(track);
+        window.addEventListener("resize", measure);
+        return () => {
+            ro.disconnect();
+            window.removeEventListener("resize", measure);
+        };
+    }, [rowKey]);
+
+    if (!row.length) {
+        return null;
+    }
+
+    return (
+        <div
+            className="relative overflow-x-hidden overflow-y-visible w-full py-2 -my-2"
+            style={fadeMaskStyle}
+        >
             <div
-                className="relative overflow-x-hidden overflow-y-visible w-full py-2 -my-2"
-                style={fadeMaskStyle}
-                dir={moveRight ? "rtl" : "ltr"}
+                ref={trackRef}
+                className={`flex gap-4 items-center ${moveRight ? "animate-marquee-rtl" : "animate-marquee-ltr"}`}
+                style={{
+                    animationDuration: `${speed}ms`,
+                    ...(trackWidth > 0 && { "--marquee-width": `${trackWidth}px` }),
+                } as React.CSSProperties}
+                role="list"
+                aria-label={moveRight ? "Tech stack marquee right to left" : "Tech stack marquee left to right"}
             >
-                <Swiper
-                    key={`swiper-${rowKey}`}
-                    modules={[Autoplay]}
-                    loop={true}
-                    loopAdditionalSlides={100}
-                    speed={speed}
-                    autoplay={{
-                        delay: 0,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: false,
-                        // waitForTransition: false SUDAH DIHAPUS DI SINI
-                    }}
-                    slidesPerView="auto"
-                    spaceBetween={16}
-                    allowTouchMove={false}
-                    className={`tech-marquee-swiper tech-marquee-swiper-${rowKey} !overflow-visible`}
-                >
-                    {safeDisplayRow.map((tech, index) => (
-                        <SwiperSlide
-                            key={`${tech.id}-${rowKey}-${index}`}
-                            className="!w-auto pb-1"
-                            dir="ltr"
-                        >
+                <div data-marquee-copy="first" className="flex gap-4 items-center flex-shrink-0">
+                    {displayRow.map((tech, index) => (
+                        <div key={`${tech.id}-${rowKey}-${index}`} className="flex-shrink-0 pb-1" role="listitem">
                             <TechBadge tech={tech} />
-                        </SwiperSlide>
+                        </div>
                     ))}
-                </Swiper>
+                </div>
+                <div data-marquee-copy="second" className="flex gap-4 items-center flex-shrink-0">
+                    {displayRow.map((tech, index) => (
+                        <div key={`${tech.id}-${rowKey}-${index}-copy`} className="flex-shrink-0 pb-1" role="listitem">
+                            <TechBadge tech={tech} />
+                        </div>
+                    ))}
+                </div>
             </div>
-        );
+        </div>
+    );
+}
+
+function TechStack({ technologies }: TechStackProps) {
+    const visibleTechs = technologies.filter((tech) => tech.isVisible);
+
+    const fadeMaskStyle: React.CSSProperties = {
+        maskImage:
+            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
     };
 
     return (
@@ -116,36 +133,35 @@ function TechStack({ technologies }: TechStackProps) {
                       </div>
                   </div>
 
-                  <div className="space-y-8">
-                      {visibleTechs.length > 0 ? (
-                          <>
-                              <div className="relative">
-                                {/* Tambahan z-10 agar efek bayangan putih berada di atas animasi berjalan */}
-                                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
-                                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
-                                <TechMarqueeRow
-                                    row={visibleTechs}
-                                    moveRight={true}
-                                    speed={4600} 
-                                    rowKey="top"
-                                />
-                              </div>
+<div className="space-y-8">
+                       {visibleTechs.length > 0 ? (
+                           <>
+                               <div className="relative">
+                                 {/* Tambahan z-10 agar efek bayangan putih berada di atas animasi berjalan */}
+                                 <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
+                                 <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+<TechMarqueeRow
+    row={visibleTechs}
+    moveRight={true}
+    speed={60000}
+    rowKey="top"
+    fadeMaskStyle={fadeMaskStyle}
+/>
+                               </div>
 
-                              <div className="relative">
-                                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
-                                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
-                                <TechMarqueeRow
-                                    row={[
-                                        ...visibleTechs.slice(Math.ceil(visibleTechs.length / 2)),
-                                        ...visibleTechs.slice(0, Math.ceil(visibleTechs.length / 2)),
-                                    ].reverse()}
-                                    moveRight={false}
-                                    speed={4600} 
-                                    rowKey="bottom"
-                                />
-                              </div>
-                          </>
-                      ) : (
+                               <div className="relative">
+                                 <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
+                                 <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+<TechMarqueeRow
+    row={visibleTechs}
+    moveRight={false}
+    speed={60000}
+    rowKey="bottom"
+    fadeMaskStyle={fadeMaskStyle}
+/>
+                               </div>
+                           </>
+                       ) : (
                           <p className="text-center text-gray-500 text-lg py-8">
                               Belum ada teknologi yang ditampilkan.
                           </p>
