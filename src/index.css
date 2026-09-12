@@ -94,6 +94,29 @@
     100% { transform: translateX(100%); }
   }
 
+  @keyframes marquee-rtl {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-1 * var(--marquee-width))); }
+  }
+
+  @keyframes marquee-ltr {
+    from { transform: translateX(calc(-1 * var(--marquee-width))); }
+    to { transform: translateX(0); }
+  }
+
+  .animate-marquee-rtl {
+    animation: marquee-rtl linear infinite;
+  }
+
+  .animate-marquee-ltr {
+    animation: marquee-ltr linear infinite;
+  }
+
+  .animate-marquee-rtl:hover,
+  .animate-marquee-ltr:hover {
+    animation-play-state: paused;
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }
