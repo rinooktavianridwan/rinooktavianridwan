@@ -18,13 +18,13 @@ function Card({ project }: CardProps) {
       <div className="group relative flex flex-col bg-white/95 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 rounded-2xl w-full h-full p-4 pb-10 md:p-6 border border-gray-100 hover:border-[#3E8DE3]/20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-1/2 transition-all duration-500 h-1 bg-gradient-to-r from-[#143AA2] to-[#3E8DE3] rounded-b-lg" />
         
-        <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-center text-gray-900 group-hover:text-[#143AA2] transition-colors duration-300">
+        <h3 className="shrink-0 text-xl md:text-2xl font-bold mb-3 md:mb-4 text-center text-gray-900 group-hover:text-[#143AA2] transition-colors duration-300">
           {title}
         </h3>
 
-        <div className="bg-gradient-to-br from-[#3E8DE3]/5 to-[#143AA2]/5 rounded-xl w-full p-3 md:p-4 relative overflow-hidden flex-1 flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 flex-1">
-            <div className="w-full md:col-span-7 relative">
+        <div className="bg-gradient-to-br from-[#3E8DE3]/5 to-[#143AA2]/5 rounded-xl w-full p-3 md:p-4 relative overflow-hidden flex-1 min-h-0 flex flex-col">
+          <div className="flex flex-col md:grid md:grid-cols-12 gap-4 flex-1 min-h-0">
+            <div className="w-full shrink-0 md:col-span-7 md:h-full relative">
               {images && images.length > 0 ? (
                 <div className="relative w-full h-[200px] md:h-full md:min-h-[220px] md:max-h-[280px] rounded-lg overflow-hidden bg-white/50">
                   <CustomSwipper 
@@ -57,14 +57,14 @@ function Card({ project }: CardProps) {
               )}
             </div>
 
-            <div className="flex flex-col gap-3 md:gap-5 md:col-span-5 md:pl-4">
-              <div className="bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100 h-[240px] md:h-auto md:min-h-[180px] md:max-h-[240px] overflow-y-auto scrollbar-thin">
+            <div className="flex flex-col gap-3 md:gap-5 md:col-span-5 md:pl-4 flex-1 min-h-0">
+              <div className="bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100 flex-1 min-h-[90px] max-h-[150px] md:max-h-[200px] overflow-y-auto overscroll-contain scrollbar-thin">
                 <h4 className="text-xs md:text-sm font-semibold text-gray-500 tracking-wider mb-2">Description</h4>
                 <p className="text-sm md:text-base text-gray-700 leading-relaxed">{description}</p>
               </div>
 
               {technologies && technologies.length > 0 && (
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100">
+                <div className="shrink-0 bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100">
                   <h4 className="text-xs md:text-sm font-semibold text-gray-500 tracking-wider mb-2">Technologies</h4>
                   <div
                     className="flex gap-2 overflow-x-auto overscroll-contain pb-1 scrollbar-thin touch-pan-x"
@@ -97,7 +97,7 @@ function Card({ project }: CardProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 md:gap-3 mt-4">
+          <div className="shrink-0 grid grid-cols-2 gap-2 md:gap-3 mt-4">
             <a
               href={websiteUrl || "#"}
               target="_blank"
@@ -132,7 +132,7 @@ function Card({ project }: CardProps) {
             </a>
           </div>
 
-          <div className="w-full mt-3 md:mt-6">
+          <div className="shrink-0 w-full mt-3 md:mt-6">
             <button
               type="button"
               onClick={() => setShow(true)}

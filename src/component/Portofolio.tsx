@@ -37,7 +37,7 @@ function Portofolio({ projects }: PortofolioProps) {
           <div className="flex w-full justify-center items-center">
             {visibleProjects.length > 0 ? (
               <CustomSwipper
-                className="w-full max-w-[95vw] md:max-w-[850px] lg:max-w-[1100px] h-[850px] min-[420px]:h-[750px] sm:h-[650px] md:h-[550px] lg:h-[500px] transition-all duration-300 ease-in-out"
+                className="w-full max-w-[95vw] md:max-w-[850px] lg:max-w-[1100px] h-[720px] min-[420px]:h-[700px] sm:h-[670px] md:h-[580px] lg:h-[560px] transition-all duration-300 ease-in-out"
                 navigationId="projects"
                 disableTouch
                 showDots
