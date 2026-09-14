@@ -40,6 +40,48 @@
   a, button, input, select, textarea {
     @apply transition-all duration-200 ease-out;
   }
+
+  @media (max-width: 767px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: none !important;
+    }
+  }
+
+  /* Titik-titik (pagination) hanya tampil di HP, tablet ke atas pakai panah */
+  .swiper-pagination {
+    bottom: 6px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px !important;
+    opacity: 1;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .swiper-dots-dark .swiper-pagination-bullet {
+    background: rgba(20, 58, 162, 0.35);
+  }
+  .swiper-dots-dark .swiper-pagination-bullet-active {
+    background: #143AA2;
+    transform: scale(1.25);
+  }
+
+  .swiper-dots-light .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5);
+  }
+  .swiper-dots-light .swiper-pagination-bullet-active {
+    background: #ffffff;
+    transform: scale(1.25);
+  }
+
+  @media (min-width: 768px) {
+    .swiper-controls .swiper-pagination {
+      display: none !important;
+    }
+  }
 }
 
 @layer utilities {

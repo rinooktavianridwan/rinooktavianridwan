@@ -1,9 +1,8 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import ArrowUp from "../icon/ArrowUp";
 import CustomSwipper from "../../swiper/customSwipper";
 import { SwiperSlide } from "swiper/react";
 import type { ProjectResponse } from "../../api/types";
-import type { Swiper as SwiperInstance } from "swiper/types";
 
 interface CardProps {
   project: ProjectResponse;
@@ -13,56 +12,41 @@ function Card({ project }: CardProps) {
   const [show, setShow] = useState(false);
   const { title, description, images, websiteUrl, githubUrl, documentationUrl, technologies } =
     project;
-  const swiperRef = useRef<SwiperInstance | null>(null);
 
   return (
     <>
-      <div className="group relative flex flex-col bg-white/95 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 rounded-2xl w-full h-full p-6 border border-gray-100 hover:border-[#3E8DE3]/20">
-        {/* Top accent bar */}
+      <div className="group relative flex flex-col bg-white/95 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 rounded-2xl w-full h-full p-4 pb-10 md:p-6 border border-gray-100 hover:border-[#3E8DE3]/20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-1/2 transition-all duration-500 h-1 bg-gradient-to-r from-[#143AA2] to-[#3E8DE3] rounded-b-lg" />
         
-        <h3 className="text-xl md:text-2xl font-bold mb-4 text-center text-gray-900 group-hover:text-[#143AA2] transition-colors duration-300">
+        <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-center text-gray-900 group-hover:text-[#143AA2] transition-colors duration-300">
           {title}
         </h3>
 
-        <div className="bg-gradient-to-br from-[#3E8DE3]/5 to-[#143AA2]/5 rounded-xl w-full p-4 relative overflow-hidden flex-1 flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div className="bg-gradient-to-br from-[#3E8DE3]/5 to-[#143AA2]/5 rounded-xl w-full p-3 md:p-4 relative overflow-hidden flex-1 flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 flex-1">
             <div className="w-full md:col-span-7 relative">
               {images && images.length > 0 ? (
-                <div className="relative h-full min-h-[220px] max-h-[280px] rounded-lg overflow-hidden bg-gray-50">
+                <div className="relative w-full h-[200px] md:h-full md:min-h-[220px] md:max-h-[280px] rounded-lg overflow-hidden bg-white/50">
                   <CustomSwipper 
                     navigationId={`card-images-${project.id}`}
-                    className="h-full"
+                    className="h-full w-full custom-mobile-swiper"
+                    showDots
+                    dotsVariant="dark"
                   >
-                    {images.map((img, idx) => (
-                      <SwiperSlide key={img.id} className="h-full flex items-center justify-center px-2">
+                    {images?.map((img, idx) => (
+                      <SwiperSlide key={img.id} className="h-full w-full flex items-center justify-center">
                         <img
                           src={img.imageUrl}
                           alt={`${title} - screenshot ${idx + 1}`}
-                          className="w-full h-full object-contain max-h-[260px] transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full object-contain md:max-h-[260px] transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
                         />
                       </SwiperSlide>
                     ))}
                   </CustomSwipper>
-                  
-                  {/* Image indicators */}
-                  {images.length > 1 && (
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                      {images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => swiperRef.current?.slideToLoop(idx)}
-                          className="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75 transition-all duration-300"
-                          aria-label={`View image ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-                  )}
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-full min-h-[220px] text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                <div className="flex items-center justify-center w-full h-[200px] md:h-full md:min-h-[220px] text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
                   <div className="text-center p-4">
                     <svg className="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -73,20 +57,26 @@ function Card({ project }: CardProps) {
               )}
             </div>
 
-            <div className="flex flex-col gap-5 md:col-span-5 md:pl-4">
-              <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 min-h-[150px] max-h-[220px] md:min-h-[180px] md:max-h-[240px] overflow-y-auto">
-                <h4 className="text-sm font-semibold text-gray-500 tracking-wider mb-2">Description</h4>
-                <p className="text-base text-gray-700 leading-relaxed">{description}</p>
+            <div className="flex flex-col gap-3 md:gap-5 md:col-span-5 md:pl-4">
+              <div className="bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100 h-[240px] md:h-auto md:min-h-[180px] md:max-h-[240px] overflow-y-auto scrollbar-thin">
+                <h4 className="text-xs md:text-sm font-semibold text-gray-500 tracking-wider mb-2">Description</h4>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed">{description}</p>
               </div>
 
               {technologies && technologies.length > 0 && (
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100">
-                  <h4 className="text-sm font-semibold text-gray-500 tracking-wider mb-3">Technologies</h4>
-                  <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
-                    {technologies.map((tech) => (
+                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-gray-100">
+                  <h4 className="text-xs md:text-sm font-semibold text-gray-500 tracking-wider mb-2">Technologies</h4>
+                  <div
+                    className="flex gap-2 overflow-x-auto overscroll-contain pb-1 scrollbar-thin touch-pan-x"
+                    onPointerDown={(event) => event.stopPropagation()}
+                    onPointerMove={(event) => event.stopPropagation()}
+                    onTouchStart={(event) => event.stopPropagation()}
+                    onTouchMove={(event) => event.stopPropagation()}
+                  >
+                    {technologies?.map((tech) => (
                       <span
                         key={tech.id}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full whitespace-nowrap shrink-0 w-max"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 md:py-1.5 text-[10px] md:text-xs font-semibold rounded-full whitespace-nowrap shrink-0 w-max"
                         style={{
                           backgroundColor: `${tech.color}15`,
                           color: tech.color,
@@ -94,7 +84,7 @@ function Card({ project }: CardProps) {
                         }}
                       >
                         {tech.iconUrl && tech.iconUrl.length <= 2 && /\p{Emoji}/u.test(tech.iconUrl) ? (
-                          <span className="text-xs">{tech.iconUrl}</span>
+                          <span className="text-[10px] md:text-xs">{tech.iconUrl}</span>
                         ) : tech.iconUrl && !/\p{Emoji}/u.test(tech.iconUrl) ? (
                           <img src={tech.iconUrl} alt="" className="w-3 h-3 object-contain" />
                         ) : null}
@@ -107,12 +97,12 @@ function Card({ project }: CardProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-4">
+          <div className="grid grid-cols-2 gap-2 md:gap-3 mt-4">
             <a
               href={websiteUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+              className={`flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-3 rounded-xl font-semibold text-xs md:text-sm transition-all duration-300 ${
                 websiteUrl
                   ? "bg-[#143AA2] text-white hover:bg-[#102c7b] hover:shadow-lg hover:shadow-[#143AA2]/30"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
@@ -128,7 +118,7 @@ function Card({ project }: CardProps) {
               href={githubUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+              className={`flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-3 rounded-xl font-semibold text-xs md:text-sm transition-all duration-300 ${
                 githubUrl
                   ? "bg-gray-900 text-white hover:bg-gray-700 hover:shadow-lg"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
@@ -142,12 +132,12 @@ function Card({ project }: CardProps) {
             </a>
           </div>
 
-          <div className="w-full mt-6">
+          <div className="w-full mt-3 md:mt-6">
             <button
               type="button"
               onClick={() => setShow(true)}
               disabled={!documentationUrl}
-              className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold transition-all duration-300 ${
+              className={`w-full flex items-center justify-center gap-2 px-4 md:px-5 py-2.5 md:py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 ${
                 documentationUrl
                   ? "bg-gradient-to-r from-[#143AA2] to-[#3E8DE3] text-white hover:from-[#102c7b] hover:to-[#2E5C99] hover:shadow-lg hover:shadow-[#143AA2]/40"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
@@ -173,12 +163,10 @@ function Card({ project }: CardProps) {
           onClick={() => setShow(false)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Demo video for ${title}`}
         >
           <div className="relative w-11/12 md:w-4/5 lg:w-[72%] xl:w-[65%] max-w-[1200px] animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
-              aria-label="Close video"
               className="absolute -top-12 right-0 w-10 h-10 flex items-center justify-center text-white bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors z-10"
               onClick={() => setShow(false)}
             >
@@ -196,11 +184,6 @@ function Card({ project }: CardProps) {
               ></iframe>
             ) : (
               <div className="flex flex-col items-center justify-center w-full aspect-video bg-gray-900 rounded-xl">
-                <div className="w-20 h-20 rounded-full bg-gray-800 flex items-center justify-center mb-4 animate-pulse">
-                  <svg className="w-10 h-10 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
                 <p className="text-gray-400 text-lg">Video Not Added Yet</p>
               </div>
             )}
